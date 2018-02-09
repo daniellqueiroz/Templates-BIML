@@ -1,0 +1,19 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+<#@include file="Metadata Loading.biml"#>
+
+
+
+<Packages>    
+<#
+    foreach (DataRow tableRow in tableList.Rows)
+    {
+        var packageName = tableRow["TABLE_NAME"].ToString().Replace("[","").Replace("]","");
+#>
+
+    <Package Name="<#=packageName#>">
+        
+    </Package>
+<#}#>
+</Packages>
+    
+</Biml>

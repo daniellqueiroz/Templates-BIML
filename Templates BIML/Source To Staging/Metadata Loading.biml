@@ -1,0 +1,68 @@
+<#@ template language="C#" hostspecific="true"#>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+
+<#
+
+    
+    string SourceConnectionString = @"Data Source=.;Initial Catalog=AdventureWorks2016;Integrated Security=True";
+    string DestinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
+
+            var tableList = GetTablesList(SourceConnectionString);
+
+            foreach (System.Data.DataRow table in tableList.Rows)
+            {
+                var columnsDataTable = GetColumnsList(SourceConnectionString, table);
+            }
+#>
+
+<!-- A function getting list of tables for a specified connection. 
+    TableName should include schema name.
+-->
+<#
+
+#>
+
+<#+
+        static DataTable GetTablesList(string ConnectionString)
+        {
+            var AWConnectionString = new SqlConnectionStringBuilder(ConnectionString);
+            AWConnectionString.ApplicationName = "BIML";
+            var AWConnection = new SqlConnection(AWConnectionString.ConnectionString);
+
+            DataTable tables = new DataTable();
+
+            using (AWConnection)
+            {
+                AWConnection.Open();
+                tables = AWConnection.GetSchema(System.Data.SqlClient.SqlClientMetaDataCollectionNames.Tables);
+            }
+            return tables;
+        }
+#>
+
+<#+
+        static DataTable GetColumnsList(string ConnectionString, DataRow tableRow)
+        {
+            var AWConnectionString = new SqlConnectionStringBuilder(ConnectionString);
+            AWConnectionString.ApplicationName = "BIML";
+            var AWConnection = new SqlConnection(AWConnectionString.ConnectionString);
+
+            DataTable Columns = new DataTable();
+
+            using (AWConnection)
+            {
+                AWConnection.Open();
+
+                string[] columnRestrictions = new string[4];
+
+                columnRestrictions[0] = tableRow["TABLE_CATALOG"].ToString();
+                columnRestrictions[1] = tableRow["TABLE_SCHEMA"].ToString();
+                columnRestrictions[2] = tableRow["TABLE_NAME"].ToString();
+
+                Columns = AWConnection.GetSchema("Columns", columnRestrictions);
+                
+            }
+            return Columns;
+        }
+#>
