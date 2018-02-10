@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="02/09/2018 16:42:54" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="UTVPC08W90L" DTS:CreatorName="alebra" DTS:DTSID="{6C4FF371-5452-4824-B804-672BE0BAAD0B}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="dbo_ErrorLog" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{1BA6D464-FC17-4D35-9B2F-9B460F0A4F22}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
-  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
-</DTS:Executable>

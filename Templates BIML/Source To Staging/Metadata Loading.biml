@@ -27,11 +27,17 @@
             var AWConnection = new SqlConnection(AWConnectionString.ConnectionString);
 
             DataTable tables = new DataTable();
+            string[] tableRestrictions = new string[4];
+
+            
+            tableRestrictions[1] = "Sales";
+            tableRestrictions[3] = "BASE TABLE";
+            
 
             using (AWConnection)
             {
                 AWConnection.Open();
-                tables = AWConnection.GetSchema(System.Data.SqlClient.SqlClientMetaDataCollectionNames.Tables);
+                tables = AWConnection.GetSchema(System.Data.SqlClient.SqlClientMetaDataCollectionNames.Tables,tableRestrictions );
             }
             return tables;
         }
