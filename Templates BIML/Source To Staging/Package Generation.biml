@@ -15,6 +15,8 @@
 #>
     <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="EncryptSensitiveWithUserKey">
         <Variables>
+            
+            <Variable Name="TableNameSource" DataType="String" EvaluateAsExpression="false"><#=tableRow["TABLE_SCHEMA"].ToString() +"." + tableRow["TABLE_NAME"].ToString()#></Variable>
             <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=tableRow["TABLE_SCHEMA"].ToString() +"." + tableRow["TABLE_NAME"].ToString()#></Variable>
             <Variable Name="SQL_truncate" DataType="String" EvaluateAsExpression="true">"truncate table " + @[User::TableNameTarget]</Variable>
         </Variables>
@@ -22,6 +24,17 @@
             <ExecuteSQL Name="<#="truncate Staging table" + packageName#>" ConnectionName="StagingAdventureWorks2016">
                 <VariableInput VariableName="User.SQL_truncate"/>
             </ExecuteSQL>
+            <Dataflow Name="Moving Data from Source to Staging">
+                <Transformations>
+                    <OleDbSource Name="Query Source" ConnectionName="AdventureWorks2016">
+                        <TableFromVariableInput VariableName="User.TableNameSource"/>
+                        
+                    </OleDbSource>
+                        <OleDbDestination Name="Feed Staging" ConnectionName="StagingAdventureWorks2016">
+                            <TableFromVariableOutput VariableName="User.TableNameTarget"/>
+                        </OleDbDestination>
+                </Transformations>
+            </Dataflow>
             
         </Tasks>
     </Package>

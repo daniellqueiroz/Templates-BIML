@@ -1,19 +1,137 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="02/10/2018 20:38:01" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{6C7BC43B-49CC-498C-9FD8-F1658408C2B1}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_SalesTaxRate" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{EDC75277-1AC2-4723-BE8E-E785B5966DD9}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="02/10/2018 23:06:38" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{0B67B521-7615-4843-A071-48179AA945F0}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_SalesTaxRate" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{CC0CD79C-A0FA-412D-9B23-51DC303AF9CD}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{A349426D-53C8-40E2-A951-3F23C9199F69}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{E02D745A-10E6-4E2E-8BE5-2E15590FD3DA}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">Sales.SalesTaxRate</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{33DDAEA6-3623-48CA-AE1B-AC225045AAAF}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{0A3BB9F5-46E8-4AD1-8288-7123BECEC902}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+      <DTS:VariableValue DTS:DataType="8">Sales.SalesTaxRate</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{25671A79-3854-4050-A0DB-5BF246417C71}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
       <DTS:VariableValue DTS:DataType="8">truncate table Sales.SalesTaxRate</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{C8BF622A-740A-4749-A245-ECDFF9DB8972}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_SalesTaxRate" DTS:refId="Package\truncate Staging tableSales_SalesTaxRate" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{3EF9DEBA-A56E-4938-8AAB-2363F6C63E46}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_SalesTaxRate" DTS:refId="Package\truncate Staging tableSales_SalesTaxRate" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingAdventureWorks2016" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{C0F5B537-A88C-47B2-8C1A-03812BA3D73D}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Staging" DTS:refId="Package\Moving Data from Source to Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Moving Data from Source to Staging\Query Source" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{C2B104CD-9D3D-4F3E-9FCB-1006EAD6CCF7}:external" connectionManagerRefId="Project.ConnectionManagers[AdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Query Source.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="SalesTaxRateID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesTaxRateID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="StateProvinceID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[StateProvinceID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="ui1" name="TaxType" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[TaxType]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="TaxRate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[TaxRate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="50" name="Name" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[Name]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesTaxRateID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesTaxRateID]" name="SalesTaxRateID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesTaxRateID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[StateProvinceID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[StateProvinceID]" name="StateProvinceID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[StateProvinceID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="ui1" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[TaxType]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TaxType]" name="TaxType" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TaxType]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[TaxRate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TaxRate]" name="TaxRate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TaxRate]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[Name]" length="50" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[Name]" name="Name" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[Name]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="guid" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[rowguid]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[rowguid]" name="rowguid" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[rowguid]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesTaxRateID]" name="SalesTaxRateID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesTaxRateID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[StateProvinceID]" name="StateProvinceID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[StateProvinceID]"></outputColumn>
+                    <outputColumn dataType="ui1" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[TaxType]" name="TaxType" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[TaxType]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[TaxRate]" name="TaxRate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[TaxRate]"></outputColumn>
+                    <outputColumn dataType="wstr" length="50" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[Name]" name="Name" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[Name]"></outputColumn>
+                    <outputColumn dataType="guid" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[rowguid]" name="rowguid" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[rowguid]"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameSource</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">1</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{2AF46DF2-8A65-4911-A682-279046568F3E}:external" connectionManagerRefId="Project.ConnectionManagers[StagingAdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Feed Staging.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="SalesTaxRateID" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesTaxRateID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="StateProvinceID" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[StateProvinceID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="ui1" name="TaxType" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[TaxType]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="TaxRate" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[TaxRate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="50" name="Name" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[Name]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="SalesTaxRateID" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesTaxRateID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesTaxRateID]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[SalesTaxRateID]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="StateProvinceID" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[StateProvinceID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[StateProvinceID]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[StateProvinceID]"></inputColumn>
+                    <inputColumn cachedDataType="ui1" cachedName="TaxType" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[TaxType]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TaxType]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[TaxType]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="TaxRate" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[TaxRate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TaxRate]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[TaxRate]"></inputColumn>
+                    <inputColumn cachedDataType="wstr" cachedLength="50" cachedName="Name" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[Name]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[Name]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[Name]"></inputColumn>
+                    <inputColumn cachedDataType="guid" cachedName="rowguid" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[rowguid]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[rowguid]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[rowguid]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error]" synchronousInputId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameTarget</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">4</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging.Paths[Query Source_Output_Feed Staging]" startId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{95B38849-4B8A-4E2C-9DEA-569E9A9264DE}" DTS:From="Package\truncate Staging tableSales_SalesTaxRate" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_truncate Staging tableSales_SalesTaxRate_To_Moving Data from Source to Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_truncate Staging tableSales_SalesTaxRate_To_Moving Data from Source to Staging]" DTS:To="Package\Moving Data from Source to Staging"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
 </DTS:Executable>

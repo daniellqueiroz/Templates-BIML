@@ -1,19 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="02/10/2018 20:38:01" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{035B2894-BE21-4F97-BEDD-5FD789BED425}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_PersonCreditCard" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{135C95E6-83B7-4440-AE86-0DAEF821BD5E}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="02/10/2018 23:06:39" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{2B101594-7D65-4566-95D8-A2E184BB267C}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_PersonCreditCard" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{A01279BD-9544-4EF1-8B8D-A98E17DB6D51}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{CBD409D1-E97C-40D9-B2F4-7E5A60A59BCC}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{35711E2A-036F-4447-B39C-EA000F534198}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">Sales.PersonCreditCard</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{5A623FC1-35DD-4BDD-9566-ADEF22274170}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B51A9218-893E-47AE-AA16-E8A23023FF8F}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+      <DTS:VariableValue DTS:DataType="8">Sales.PersonCreditCard</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{820FF16C-FB28-45BB-9CE6-995E37755349}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
       <DTS:VariableValue DTS:DataType="8">truncate table Sales.PersonCreditCard</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{69C6A8EC-2C05-436E-A628-E1B9BFFD023C}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_PersonCreditCard" DTS:refId="Package\truncate Staging tableSales_PersonCreditCard" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{D6610758-A4F7-44C9-88EC-5C4424515438}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_PersonCreditCard" DTS:refId="Package\truncate Staging tableSales_PersonCreditCard" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingAdventureWorks2016" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{98FB2A0C-3B75-4928-92EA-155AAC11A6A4}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Staging" DTS:refId="Package\Moving Data from Source to Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Moving Data from Source to Staging\Query Source" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{C2B104CD-9D3D-4F3E-9FCB-1006EAD6CCF7}:external" connectionManagerRefId="Project.ConnectionManagers[AdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Query Source.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[BusinessEntityID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="CreditCardID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[CreditCardID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[BusinessEntityID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[BusinessEntityID]" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[BusinessEntityID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[CreditCardID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CreditCardID]" name="CreditCardID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CreditCardID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[BusinessEntityID]" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[BusinessEntityID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[CreditCardID]" name="CreditCardID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[CreditCardID]"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameSource</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">1</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{2AF46DF2-8A65-4911-A682-279046568F3E}:external" connectionManagerRefId="Project.ConnectionManagers[StagingAdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Feed Staging.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[BusinessEntityID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="CreditCardID" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CreditCardID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="BusinessEntityID" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[BusinessEntityID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[BusinessEntityID]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[BusinessEntityID]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="CreditCardID" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CreditCardID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CreditCardID]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[CreditCardID]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error]" synchronousInputId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameTarget</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">4</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging.Paths[Query Source_Output_Feed Staging]" startId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{51C13D84-031F-4B1B-AD3A-9C266E95382C}" DTS:From="Package\truncate Staging tableSales_PersonCreditCard" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_truncate Staging tableSales_PersonCreditCard_To_Moving Data from Source to Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_truncate Staging tableSales_PersonCreditCard_To_Moving Data from Source to Staging]" DTS:To="Package\Moving Data from Source to Staging"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
 </DTS:Executable>

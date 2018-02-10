@@ -1,19 +1,147 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="02/10/2018 20:38:01" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{DCADFC50-4A02-4D76-B4FA-98AF66C5E394}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_SalesPerson" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{597E2F0E-8209-429B-9FFB-8E8348361CE9}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="02/10/2018 23:06:39" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{922F0374-ED85-4DD4-BAE2-485044E98631}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_SalesPerson" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{CFEDDC74-2A19-467A-8505-6D155E6132A5}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{E11A614A-BA13-47EE-B96A-AD620B141857}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{D72F1ED5-7CDF-42E6-8D4D-4597A42BE06A}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">Sales.SalesPerson</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{26C51198-7AC6-4B79-8EA0-1F96F6715C7A}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3C36B997-5044-4857-88E7-EDE8D9CDA703}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+      <DTS:VariableValue DTS:DataType="8">Sales.SalesPerson</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B28E210F-E8CF-4D7A-90AF-042B3B431CB4}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
       <DTS:VariableValue DTS:DataType="8">truncate table Sales.SalesPerson</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{18171306-8FC0-4345-9509-C6CCCC01EBA8}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_SalesPerson" DTS:refId="Package\truncate Staging tableSales_SalesPerson" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{8BA23696-84F0-4A6B-8043-06369C82E49D}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_SalesPerson" DTS:refId="Package\truncate Staging tableSales_SalesPerson" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingAdventureWorks2016" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{EB91AA4E-AF25-4736-98AD-EDFC2ECD121B}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Staging" DTS:refId="Package\Moving Data from Source to Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Moving Data from Source to Staging\Query Source" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{C2B104CD-9D3D-4F3E-9FCB-1006EAD6CCF7}:external" connectionManagerRefId="Project.ConnectionManagers[AdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Query Source.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[BusinessEntityID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="TerritoryID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[TerritoryID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="SalesQuota" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesQuota]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="Bonus" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[Bonus]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="CommissionPct" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[CommissionPct]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="SalesYTD" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="SalesLastYear" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[BusinessEntityID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[BusinessEntityID]" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[BusinessEntityID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[TerritoryID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TerritoryID]" name="TerritoryID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TerritoryID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesQuota]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesQuota]" name="SalesQuota" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesQuota]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[Bonus]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[Bonus]" name="Bonus" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[Bonus]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[CommissionPct]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CommissionPct]" name="CommissionPct" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CommissionPct]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesYTD]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesYTD]" name="SalesYTD" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesYTD]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[SalesLastYear]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesLastYear]" name="SalesLastYear" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesLastYear]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="guid" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[rowguid]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[rowguid]" name="rowguid" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[rowguid]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[BusinessEntityID]" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[BusinessEntityID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[TerritoryID]" name="TerritoryID" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[TerritoryID]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesQuota]" name="SalesQuota" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesQuota]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[Bonus]" name="Bonus" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[Bonus]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[CommissionPct]" name="CommissionPct" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[CommissionPct]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesYTD]" name="SalesYTD" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesYTD]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesLastYear]" name="SalesLastYear" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[SalesLastYear]"></outputColumn>
+                    <outputColumn dataType="guid" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[rowguid]" name="rowguid" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[rowguid]"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameSource</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">1</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{2AF46DF2-8A65-4911-A682-279046568F3E}:external" connectionManagerRefId="Project.ConnectionManagers[StagingAdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Feed Staging.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="BusinessEntityID" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[BusinessEntityID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="TerritoryID" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[TerritoryID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="SalesQuota" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesQuota]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="Bonus" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[Bonus]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="CommissionPct" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CommissionPct]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="SalesYTD" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesYTD]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="SalesLastYear" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesLastYear]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="BusinessEntityID" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[BusinessEntityID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[BusinessEntityID]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[BusinessEntityID]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="TerritoryID" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[TerritoryID]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[TerritoryID]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[TerritoryID]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="SalesQuota" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesQuota]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesQuota]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[SalesQuota]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="Bonus" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[Bonus]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[Bonus]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[Bonus]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="CommissionPct" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CommissionPct]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CommissionPct]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[CommissionPct]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="SalesYTD" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesYTD]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesYTD]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[SalesYTD]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="SalesLastYear" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[SalesLastYear]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[SalesLastYear]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[SalesLastYear]"></inputColumn>
+                    <inputColumn cachedDataType="guid" cachedName="rowguid" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[rowguid]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[rowguid]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[rowguid]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error]" synchronousInputId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameTarget</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">4</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging.Paths[Query Source_Output_Feed Staging]" startId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{AEF70CC7-1C6B-4C95-9507-4711577C2D35}" DTS:From="Package\truncate Staging tableSales_SalesPerson" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_truncate Staging tableSales_SalesPerson_To_Moving Data from Source to Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_truncate Staging tableSales_SalesPerson_To_Moving Data from Source to Staging]" DTS:To="Package\Moving Data from Source to Staging"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
 </DTS:Executable>
