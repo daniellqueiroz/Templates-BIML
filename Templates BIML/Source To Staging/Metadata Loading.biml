@@ -16,13 +16,9 @@
             }
 #>
 
-<!-- A function getting list of tables for a specified connection. 
-    TableName should include schema name.
+<!-- The function returns a DataTable object of tables for a specified connection. 
+        This object has all columns of INFORMATION_SCHEMA.TABLES
 -->
-<#
-
-#>
-
 <#+
         static DataTable GetTablesList(string ConnectionString)
         {
@@ -40,6 +36,10 @@
             return tables;
         }
 #>
+
+<!-- The function returns a DataTable object of columns of a table. A table object is a DataRow object of DataTable returned by the previous function.
+        This object has all columns of INFORMATION_SCHEMA.COLUMNS
+-->
 
 <#+
         static DataTable GetColumnsList(string ConnectionString, DataRow tableRow)
