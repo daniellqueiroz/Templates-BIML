@@ -6,6 +6,7 @@
     [AccountNumber] VARCHAR (10)     NULL,
     [rowguid]       UNIQUEIDENTIFIER NOT NULL,
     [ModifiedDate]  DATETIME         NOT NULL,
+	[Staging Load Date] DATETIME     NOT NULL,
     CONSTRAINT [PK_Customer_CustomerID] PRIMARY KEY CLUSTERED ([CustomerID] ASC)
 );
 

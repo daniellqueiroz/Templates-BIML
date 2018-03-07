@@ -25,6 +25,7 @@
     [Comment]                NVARCHAR (128)   NULL,
     [rowguid]                UNIQUEIDENTIFIER NOT NULL,
     [ModifiedDate]           DATETIME         NOT NULL,
+	[Staging Load Date] DATETIME     NOT NULL,
     CONSTRAINT [PK_SalesOrderHeader_SalesOrderID] PRIMARY KEY CLUSTERED ([SalesOrderID] ASC)
 );
 

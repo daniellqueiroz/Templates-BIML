@@ -6,7 +6,8 @@
 
     
     string SourceConnectionString = @"Data Source=.;Initial Catalog=AdventureWorks2016;Integrated Security=True";
-    string DestinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
+    //string DestinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
+    string DestinationSchemaName = "Sales";
 
             var tableList = GetTablesList(SourceConnectionString);
 

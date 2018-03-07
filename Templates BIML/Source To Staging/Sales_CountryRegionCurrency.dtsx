@@ -1,30 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="02/10/2018 23:06:39" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{1003A987-0378-4676-BA90-FC4281FC7FED}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_CountryRegionCurrency" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{63B55A3A-C3F9-433C-8350-F60044A7BDC5}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="03/07/2018 19:54:49" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{9FEFBA5D-DF3F-4F56-B90A-C8CD736DB5BF}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_CountryRegionCurrency" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{DBA5112F-5F77-4D3A-B787-4044E348DD91}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{8FFBA46A-349F-4F05-A01D-3CEC87EDA663}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{4B03A582-B6D1-428C-B5F9-7E9FF06E4283}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">Sales.CountryRegionCurrency</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{80381D3C-571A-487E-95B3-B9E9E4E05F1D}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{06A13F6B-DD0F-4760-8CB9-A2B230EEC70A}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
       <DTS:VariableValue DTS:DataType="8">Sales.CountryRegionCurrency</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{45EB90A4-8B18-401C-95C3-E1A222713F6D}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{D758CF4B-A615-4069-A51D-378FF77136CA}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
       <DTS:VariableValue DTS:DataType="8">truncate table Sales.CountryRegionCurrency</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{F3C2B1EF-F524-448B-A093-F1B029D18CC2}" DTS:EvaluateAsExpression="True" DTS:Expression="GETDATE()" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="StagingLoadDate">
+      <DTS:VariableValue DTS:DataType="7">03/07/2018 19:54:49</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{51D2B3C3-E0D4-48D1-94D2-283C5A9A044A}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_CountryRegionCurrency" DTS:refId="Package\truncate Staging tableSales_CountryRegionCurrency" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{28038352-0F67-4676-89FB-FC6A66E29683}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging tableSales_CountryRegionCurrency" DTS:refId="Package\truncate Staging tableSales_CountryRegionCurrency" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
-        <SQLTask:SqlTaskData SQLTask:Connection="StagingAdventureWorks2016" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{702A70BD-4325-404B-9950-FCC58D74D0C6}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Staging" DTS:refId="Package\Moving Data from Source to Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{B4EA80BA-78DB-48D7-B424-076E32E65466}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Staging" DTS:refId="Package\Moving Data from Source to Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
           <components>
             <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Moving Data from Source to Staging\Query Source" usesDispositions="true" version="7">
               <connections>
-                <connection connectionManagerID="{C2B104CD-9D3D-4F3E-9FCB-1006EAD6CCF7}:external" connectionManagerRefId="Project.ConnectionManagers[AdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Query Source.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{ED358B78-A0CF-4D85-9CFE-1F2653C54292}:external" connectionManagerRefId="Project.ConnectionManagers[SourceDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Query Source.Connections[OleDbConnection]"></connection>
               </connections>
               <outputs>
                 <output name="Output" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]">
@@ -62,26 +65,55 @@
                 <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
               </properties>
             </component>
+            <component componentClassID="Microsoft.DerivedColumn" contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0" name="Add new columns" refId="Package\Moving Data from Source to Staging\Add new columns" usesDispositions="true">
+              <inputs>
+                <input name="Query Source_Output_Add new columns" refId="Package\Moving Data from Source to Staging\Add new columns.Inputs[Query Source_Output_Add new columns]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" name="Output" refId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Output]" synchronousInputId="Package\Moving Data from Source to Staging\Add new columns.Inputs[Query Source_Output_Add new columns]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Computation" errorRowDisposition="FailComponent" lineageId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Output].Columns[Staging Load Date]" name="Staging Load Date" refId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Output].Columns[Staging Load Date]" truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property dataType="System.String" description="Derived Column Expression" name="Expression">@[User::StagingLoadDate]</property>
+                        <property dataType="System.String" description="Derived Column Friendly Expression" expressionType="Notify" name="FriendlyExpression">@[User::StagingLoadDate]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Error]" synchronousInputId="Package\Moving Data from Source to Staging\Add new columns.Inputs[Query Source_Output_Add new columns]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
             <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging" usesDispositions="true" version="4">
               <connections>
-                <connection connectionManagerID="{2AF46DF2-8A65-4911-A682-279046568F3E}:external" connectionManagerRefId="Project.ConnectionManagers[StagingAdventureWorks2016]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Feed Staging.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{A3BC0013-541C-4804-A0A3-2E9968F09DF7}:external" connectionManagerRefId="Project.ConnectionManagers[StagingDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Feed Staging.Connections[OleDbConnection]"></connection>
               </connections>
               <inputs>
-                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Add new columns_Output_Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging]">
                   <externalMetadataColumns isUsed="True">
-                    <externalMetadataColumn dataType="wstr" length="3" name="CountryRegionCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CountryRegionCode]"></externalMetadataColumn>
-                    <externalMetadataColumn dataType="wstr" length="3" name="CurrencyCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CurrencyCode]"></externalMetadataColumn>
-                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="3" name="CountryRegionCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[CountryRegionCode]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="3" name="CurrencyCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[CurrencyCode]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="Staging Load Date" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[Staging Load Date]"></externalMetadataColumn>
                   </externalMetadataColumns>
                   <inputColumns>
-                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="CountryRegionCode" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CountryRegionCode]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CountryRegionCode]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[CountryRegionCode]"></inputColumn>
-                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="CurrencyCode" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CurrencyCode]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CurrencyCode]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[CurrencyCode]"></inputColumn>
-                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[ModifiedDate]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="Staging Load Date" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[Staging Load Date]" lineageId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Output].Columns[Staging Load Date]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[Staging Load Date]"></inputColumn>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="CountryRegionCode" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[CountryRegionCode]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CountryRegionCode]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[CountryRegionCode]"></inputColumn>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="CurrencyCode" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[CurrencyCode]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[CurrencyCode]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[CurrencyCode]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[ModifiedDate]" lineageId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output].Columns[ModifiedDate]" name="" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[ModifiedDate]"></inputColumn>
                   </inputColumns>
                 </input>
               </inputs>
               <outputs>
-                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error]" synchronousInputId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error]" synchronousInputId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging]">
                   <externalMetadataColumns></externalMetadataColumns>
                   <outputColumns>
                     <outputColumn dataType="i4" lineageId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Moving Data from Source to Staging\Feed Staging.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
@@ -105,13 +137,14 @@
             </component>
           </components>
           <paths>
-            <path endId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Query Source_Output_Feed Staging]" name="Query Source_Output_Feed Staging" refId="Package\Moving Data from Source to Staging.Paths[Query Source_Output_Feed Staging]" startId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]"></path>
+            <path endId="Package\Moving Data from Source to Staging\Add new columns.Inputs[Query Source_Output_Add new columns]" name="Query Source_Output_Add new columns" refId="Package\Moving Data from Source to Staging.Paths[Query Source_Output_Add new columns]" startId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]"></path>
+            <path endId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging]" name="Add new columns_Output_Feed Staging" refId="Package\Moving Data from Source to Staging.Paths[Add new columns_Output_Feed Staging]" startId="Package\Moving Data from Source to Staging\Add new columns.Outputs[Output]"></path>
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{4C91D198-6061-4507-8B70-A3373FF27E7D}" DTS:From="Package\truncate Staging tableSales_CountryRegionCurrency" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_truncate Staging tableSales_CountryRegionCurrency_To_Moving Data from Source to Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_truncate Staging tableSales_CountryRegionCurrency_To_Moving Data from Source to Staging]" DTS:To="Package\Moving Data from Source to Staging"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{5EF4C0C2-27D3-4401-81E6-DBF40F8BA8A7}" DTS:From="Package\truncate Staging tableSales_CountryRegionCurrency" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_truncate Staging tableSales_CountryRegionCurrency_To_Moving Data from Source to Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_truncate Staging tableSales_CountryRegionCurrency_To_Moving Data from Source to Staging]" DTS:To="Package\Moving Data from Source to Staging"></DTS:PrecedenceConstraint>
   </DTS:PrecedenceConstraints>
 </DTS:Executable>

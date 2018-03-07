@@ -6,6 +6,7 @@
     [AverageRate]      MONEY     NOT NULL,
     [EndOfDayRate]     MONEY     NOT NULL,
     [ModifiedDate]     DATETIME  NOT NULL,
+	[Staging Load Date] DATETIME     NOT NULL,
     CONSTRAINT [PK_CurrencyRate_CurrencyRateID] PRIMARY KEY CLUSTERED ([CurrencyRateID] ASC)
 );
 

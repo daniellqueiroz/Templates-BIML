@@ -9,6 +9,7 @@
     [CostLastYear]      MONEY            NOT NULL,
     [rowguid]           UNIQUEIDENTIFIER  NOT NULL,
     [ModifiedDate]      DATETIME         NOT NULL,
+	[Staging Load Date] DATETIME     NOT NULL,
     CONSTRAINT [PK_SalesTerritory_TerritoryID] PRIMARY KEY CLUSTERED ([TerritoryID] ASC)
 );
 

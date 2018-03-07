@@ -10,6 +10,7 @@
     [LineTotal]             money ,
     [rowguid]               UNIQUEIDENTIFIER  NOT NULL,
     [ModifiedDate]          DATETIME         NOT NULL,
+	[Staging Load Date] DATETIME     NOT NULL,
     CONSTRAINT [PK_SalesOrderDetail_SalesOrderID_SalesOrderDetailID] PRIMARY KEY CLUSTERED ([SalesOrderID] ASC, [SalesOrderDetailID] ASC)
 );
 

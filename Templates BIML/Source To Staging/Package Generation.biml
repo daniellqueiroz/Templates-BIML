@@ -2,10 +2,29 @@
 <#@include file="Metadata Loading.biml"#>
 
 <Connections>
-    <OleDbConnection CreateInProject="true" Name="AdventureWorks2016" ConnectionString="Data Source=localhost;Initial Catalog=AdventureWorks2016;Integrated Security=SSPI;Provider=SQLNCLI11;" ></OleDbConnection>
-    <OleDbConnection CreateInProject="true" Name="StagingAdventureWorks2016" ConnectionString="Data Source=localhost;Initial Catalog=StagingAdventureWorks2016;Integrated Security=SSPI;Provider=SQLNCLI11;" ></OleDbConnection>
+    <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="Data Source=localhost;User ID=testuser;Initial Catalog=AdventureWorks2016;Provider=SQLNCLI11;Password=12345;" RetainSameConnection="true"></OleDbConnection>
+    <OleDbConnection CreateInProject="true" Name="StagingDatabaseConnection" ConnectionString="Data Source=localhost;Initial Catalog=StagingAdventureWorks2016;Integrated Security=SSPI;Provider=SQLNCLI11;" ></OleDbConnection>
 </Connections>
+<Projects>
+    <PackageProject Name="Source To Staging" ProtectionLevel="DontSaveSensitive">
+        <Parameters>
+            <Parameter Name="SourceConnectionString" DataType="String"></Parameter>           
+            <Parameter Name="SourcePassword" DataType="String"></Parameter>
+            <Parameter Name="StagingConnectionString" DataType="String"></Parameter>           
+            <Parameter Name="StagingPassword" DataType="String"></Parameter>
+        </Parameters>
+        <Packages>
+<#
+    foreach (DataRow tableRow in tableList.Rows)
+    {
+        var packageName = tableRow["TABLE_SCHEMA"].ToString() +"_" + tableRow["TABLE_NAME"].ToString().Replace("[","").Replace("]","");
+#>       
+            <Package PackageName="<#=packageName#>"/>
+<#}#>
+        </Packages>
 
+    </PackageProject>
+</Projects>
 
 <Packages>    
 <#
@@ -13,48 +32,62 @@
     {
         var packageName = tableRow["TABLE_SCHEMA"].ToString() +"_" + tableRow["TABLE_NAME"].ToString().Replace("[","").Replace("]","");
 #>
-    <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="EncryptSensitiveWithUserKey">
+    <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="DontSaveSensitive">
+        <Connections>
+            <Connection ConnectionName="SourceDatabaseConnection">
+                <Expressions>
+                    <Expression ExternalProperty="ConnectionString">@[$Project::SourceConnectionString]</Expression>
+                    <Expression ExternalProperty="Password">@[$Project::SourcePassword]</Expression>
+                </Expressions>
+            </Connection>
+            <Connection ConnectionName="StagingDatabaseConnection">
+                <Expressions>
+                    <Expression ExternalProperty="ConnectionString">@[$Project::StagingConnectionString]</Expression>
+                    <Expression ExternalProperty="Password">@[$Project::StagingPassword]</Expression>
+                </Expressions>
+            </Connection>
+        </Connections>
         <Variables>
-            
             <Variable Name="TableNameSource" DataType="String" EvaluateAsExpression="false"><#=tableRow["TABLE_SCHEMA"].ToString() +"." + tableRow["TABLE_NAME"].ToString()#></Variable>
-            <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=tableRow["TABLE_SCHEMA"].ToString() +"." + tableRow["TABLE_NAME"].ToString()#></Variable>
+            <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=DestinationSchemaName +"." + tableRow["TABLE_NAME"].ToString()#></Variable>
             <Variable Name="SQL_truncate" DataType="String" EvaluateAsExpression="true">"truncate table " + @[User::TableNameTarget]</Variable>
+            <Variable Name="StagingLoadDate" DataType="DateTime" EvaluateAsExpression="true">GETDATE()</Variable>
         </Variables>
         <Tasks>
-            <ExecuteSQL Name="<#="truncate Staging table" + packageName#>" ConnectionName="StagingAdventureWorks2016">
+            <ExecuteSQL Name="<#="truncate Staging table" + packageName#>" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_truncate"/>
             </ExecuteSQL>
             <Dataflow Name="Moving Data from Source to Staging">
                 <Transformations>
-                    <OleDbSource Name="Query Source" ConnectionName="AdventureWorks2016">
+                    <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
                         <TableFromVariableInput VariableName="User.TableNameSource"/>
-                        
                     </OleDbSource>
-                        <OleDbDestination Name="Feed Staging" ConnectionName="StagingAdventureWorks2016">
-                            <TableFromVariableOutput VariableName="User.TableNameTarget"/>
-                        </OleDbDestination>
+                    <DerivedColumns Name="Add new columns">
+                        <Columns>
+                            <Column Name="Staging Load Date" DataType="DateTime">
+                                @[User::StagingLoadDate]
+                            </Column>
+                        </Columns>
+                    </DerivedColumns>
+                    <OleDbDestination Name="Feed Staging" ConnectionName="StagingDatabaseConnection">
+                        <TableFromVariableOutput VariableName="User.TableNameTarget"/>
+                    </OleDbDestination>
                 </Transformations>
             </Dataflow>
-            
         </Tasks>
     </Package>
 <#}#>
     
-    <Package Name="_Master" ProtectionLevel="EncryptSensitiveWithUserKey">
+    <Package Name="_Master" ProtectionLevel="DontSaveSensitive">
         <Tasks>
             <#
                 foreach (DataRow tableRow in tableList.Rows)
                 {
                     var packageName = tableRow["TABLE_SCHEMA"].ToString() +"_" + tableRow["TABLE_NAME"].ToString().Replace("[","").Replace("]","");
             #>
-               
                     <ExecutePackage Name="<#=packageName.Replace("."," ")#>">
-                       
                        <ExternalProjectPackage Package="<#=packageName + ".dtsx"#>"/>
                     </ExecutePackage>
-                    
-                
-                
             <#}#>
          </Tasks>
     </Package>

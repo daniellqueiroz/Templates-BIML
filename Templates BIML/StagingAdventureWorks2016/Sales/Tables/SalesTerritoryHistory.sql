@@ -5,6 +5,7 @@
     [EndDate]          DATETIME         NULL,
     [rowguid]          UNIQUEIDENTIFIER  NOT NULL,
     [ModifiedDate]     DATETIME         NOT NULL,
+	[Staging Load Date] DATETIME     NOT NULL,
     CONSTRAINT [PK_SalesTerritoryHistory_BusinessEntityID_StartDate_TerritoryID] PRIMARY KEY CLUSTERED ([BusinessEntityID] ASC, [StartDate] ASC, [TerritoryID] ASC)
 );
 

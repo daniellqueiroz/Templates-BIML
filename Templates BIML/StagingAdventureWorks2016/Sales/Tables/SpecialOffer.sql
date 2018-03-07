@@ -10,6 +10,7 @@
     [MaxQty]         INT              NULL,
     [rowguid]        UNIQUEIDENTIFIER NOT NULL,
     [ModifiedDate]   DATETIME         NOT NULL,
+	[Staging Load Date] DATETIME     NOT NULL,
     CONSTRAINT [PK_SpecialOffer_SpecialOfferID] PRIMARY KEY CLUSTERED ([SpecialOfferID] ASC)
 );
 
