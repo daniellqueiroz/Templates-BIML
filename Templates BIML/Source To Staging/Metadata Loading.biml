@@ -7,69 +7,56 @@
     
     string SourceConnectionString = @"Data Source=.;Initial Catalog=AdventureWorks2016;Integrated Security=True";
     //string DestinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
-    string DestinationSchemaName = "Sales";
+    string destinationSchemaName = "Sales";
 
-            var tableList = GetTablesList(SourceConnectionString);
+    string[][] InitialTableList = new string[][]
+    {
+        new string[] {"Sales","Currency"},
+        new string[] {"Sales","Customer"}
+        
+    };
+    
+    
+    if(CheckTablesList(SourceConnectionString, InitialTableList) != 0)
+    {
+        InitialTableList = Array.Empty<string[]>();
+        
+    };
 
-            foreach (System.Data.DataRow table in tableList.Rows)
-            {
-                var columnsDataTable = GetColumnsList(SourceConnectionString, table);
-            }
+
 #>
 
-<!-- The function returns a DataTable object of tables for a specified connection. 
-        This object has all columns of INFORMATION_SCHEMA.TABLES
--->
 <#+
-        static DataTable GetTablesList(string ConnectionString)
+     static int CheckTablesList(string ConnectionString, string[][] TableListToCheck)
+    {
+        var AWConnectionString = new SqlConnectionStringBuilder(ConnectionString);
+        AWConnectionString.ApplicationName = "BIML";
+
+        DataTable tables = new DataTable();
+        string[] tableRestrictions = new string[4];
+
+        foreach (string[] InitialTable in TableListToCheck)
         {
-            var AWConnectionString = new SqlConnectionStringBuilder(ConnectionString);
-            AWConnectionString.ApplicationName = "BIML";
-            var AWConnection = new SqlConnection(AWConnectionString.ConnectionString);
-
-            DataTable tables = new DataTable();
-            string[] tableRestrictions = new string[4];
-
-            
-            tableRestrictions[1] = "Sales";
-            tableRestrictions[3] = "BASE TABLE";
-            
-
-            using (AWConnection)
+            using (var AWConnection = new SqlConnection(ConnectionString))
             {
-                AWConnection.Open();
-                tables = AWConnection.GetSchema(System.Data.SqlClient.SqlClientMetaDataCollectionNames.Tables,tableRestrictions );
-            }
-            return tables;
-        }
-#>
 
-<!-- The function returns a DataTable object of columns of a table. A table object is a DataRow object of DataTable returned by the previous function.
-        This object has all columns of INFORMATION_SCHEMA.COLUMNS
--->
+                tableRestrictions[1] = InitialTable[0]; //Table Schema
+                tableRestrictions[2] = InitialTable[1]; //Table Name
 
-<#+
-        static DataTable GetColumnsList(string ConnectionString, DataRow tableRow)
-        {
-            var AWConnectionString = new SqlConnectionStringBuilder(ConnectionString);
-            AWConnectionString.ApplicationName = "BIML";
-            var AWConnection = new SqlConnection(AWConnectionString.ConnectionString);
 
-            DataTable Columns = new DataTable();
-
-            using (AWConnection)
-            {
-                AWConnection.Open();
-
-                string[] columnRestrictions = new string[4];
-
-                columnRestrictions[0] = tableRow["TABLE_CATALOG"].ToString();
-                columnRestrictions[1] = tableRow["TABLE_SCHEMA"].ToString();
-                columnRestrictions[2] = tableRow["TABLE_NAME"].ToString();
-
-                Columns = AWConnection.GetSchema("Columns", columnRestrictions);
+                if (AWConnection.State == ConnectionState.Closed)
+                {
+                    AWConnection.Open();
+                }
                 
+                if (AWConnection.GetSchema(System.Data.SqlClient.SqlClientMetaDataCollectionNames.Tables, tableRestrictions).Rows.Count == 0)
+                {
+                    throw new System.ArgumentException("Can't find all the specified tables in the Source", InitialTable[1]);
+                };
+
             }
-            return Columns;
         }
+        return 0;
+    }
 #>
+

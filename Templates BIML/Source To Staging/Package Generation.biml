@@ -15,9 +15,9 @@
         </Parameters>
         <Packages>
 <#
-    foreach (DataRow tableRow in tableList.Rows)
+    foreach (string[] InitialTable in InitialTableList)
     {
-        var packageName = tableRow["TABLE_SCHEMA"].ToString() +"_" + tableRow["TABLE_NAME"].ToString().Replace("[","").Replace("]","");
+        var packageName = InitialTable[0] +"_" + InitialTable[1];
 #>       
             <Package PackageName="<#=packageName#>"/>
 <#}#>
@@ -28,9 +28,11 @@
 
 <Packages>    
 <#
-    foreach (DataRow tableRow in tableList.Rows)
+    foreach (string[] InitialTable in InitialTableList)
     {
-        var packageName = tableRow["TABLE_SCHEMA"].ToString() +"_" + tableRow["TABLE_NAME"].ToString().Replace("[","").Replace("]","");
+        var packageName = InitialTable[0] +"_" + InitialTable[1];
+        var sourceTableName = "[" + InitialTable[0] +"].[" + InitialTable[1] + "]";
+        var destinationTableName = "[" + destinationSchemaName +"].[" + InitialTable[1] + "]";
 #>
     <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="DontSaveSensitive">
         <Connections>
@@ -48,8 +50,8 @@
             </Connection>
         </Connections>
         <Variables>
-            <Variable Name="TableNameSource" DataType="String" EvaluateAsExpression="false"><#=tableRow["TABLE_SCHEMA"].ToString() +"." + tableRow["TABLE_NAME"].ToString()#></Variable>
-            <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=DestinationSchemaName +"." + tableRow["TABLE_NAME"].ToString()#></Variable>
+            <Variable Name="TableNameSource" DataType="String" EvaluateAsExpression="false"><#=sourceTableName#></Variable>
+            <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=destinationTableName#></Variable>
             <Variable Name="SQL_truncate" DataType="String" EvaluateAsExpression="true">"truncate table " + @[User::TableNameTarget]</Variable>
             <Variable Name="StagingLoadDate" DataType="DateTime" EvaluateAsExpression="true">GETDATE()</Variable>
         </Variables>
@@ -81,9 +83,9 @@
     <Package Name="_Master" ProtectionLevel="DontSaveSensitive">
         <Tasks>
             <#
-                foreach (DataRow tableRow in tableList.Rows)
-                {
-                    var packageName = tableRow["TABLE_SCHEMA"].ToString() +"_" + tableRow["TABLE_NAME"].ToString().Replace("[","").Replace("]","");
+    foreach (string[] InitialTable in InitialTableList)
+    {
+        var packageName = InitialTable[0] +"_" + InitialTable[1];
             #>
                     <ExecutePackage Name="<#=packageName.Replace("."," ")#>">
                        <ExternalProjectPackage Package="<#=packageName + ".dtsx"#>"/>

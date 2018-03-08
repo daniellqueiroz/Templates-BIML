@@ -1,88 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="03/07/2018 19:54:49" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{D27C005B-6AC0-40D3-A2D4-A0B747B7E70E}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="_Master" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{F052EC5B-FFE5-45D8-B1F8-CD743880DF0D}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="03/08/2018 19:47:42" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{8B8414E2-69CC-49B8-82F9-6F9A665ACE54}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="_Master" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{246643E8-D214-40D4-9ECB-593005A05F0F}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{B3AD8153-F653-4C5E-B685-CAE3F3980DE7}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesTaxRate" DTS:refId="Package\Sales_SalesTaxRate" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesTaxRate.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{2BCB39C2-1F70-442F-87AB-97B15C63FD09}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_PersonCreditCard" DTS:refId="Package\Sales_PersonCreditCard" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_PersonCreditCard.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{0C62116B-63F7-433F-809F-9338B80F921C}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesTerritory" DTS:refId="Package\Sales_SalesTerritory" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesTerritory.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{D945087B-10F3-4F5D-98A8-392D3C8C3FAE}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesTerritoryHistory" DTS:refId="Package\Sales_SalesTerritoryHistory" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesTerritoryHistory.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{87FA0FF6-C658-4F86-98D4-277AF1418DC5}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_ShoppingCartItem" DTS:refId="Package\Sales_ShoppingCartItem" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_ShoppingCartItem.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{C308F346-C13C-47F8-A9E3-299207D29AAA}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SpecialOffer" DTS:refId="Package\Sales_SpecialOffer" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SpecialOffer.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{9D4EE171-8697-48E5-8308-CD9713BD3308}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SpecialOfferProduct" DTS:refId="Package\Sales_SpecialOfferProduct" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SpecialOfferProduct.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{280926B2-A6C5-4793-82A5-AFB796C1597A}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_Store" DTS:refId="Package\Sales_Store" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_Store.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{7B95A53D-1963-4D3D-86EA-B1164A758351}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_CountryRegionCurrency" DTS:refId="Package\Sales_CountryRegionCurrency" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_CountryRegionCurrency.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{F51A140F-EA1C-446C-990D-F790B7998148}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_CreditCard" DTS:refId="Package\Sales_CreditCard" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_CreditCard.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{023FCBB5-C863-4914-9C85-C7328AB0270A}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_Currency" DTS:refId="Package\Sales_Currency" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{D404D7F7-0D97-4B1D-8AB1-ACF2CF4B88D0}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_Currency" DTS:refId="Package\Sales_Currency" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <ExecutePackageTask>
           <PackageName>Sales_Currency.dtsx</PackageName>
@@ -90,66 +10,10 @@
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{E0BC5B92-8517-4E22-8B34-66E62C778945}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_CurrencyRate" DTS:refId="Package\Sales_CurrencyRate" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_CurrencyRate.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{2BDDC3D0-8809-4D16-870F-F624C13D35FE}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_Customer" DTS:refId="Package\Sales_Customer" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{E7554C67-3F66-4123-8151-782D2C073E53}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_Customer" DTS:refId="Package\Sales_Customer" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <ExecutePackageTask>
           <PackageName>Sales_Customer.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{8841059C-70C7-487D-9E4B-5D1A6D59B556}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesOrderDetail" DTS:refId="Package\Sales_SalesOrderDetail" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesOrderDetail.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{18BA7C38-939F-41F0-A7E5-D54230A5897E}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesOrderHeader" DTS:refId="Package\Sales_SalesOrderHeader" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesOrderHeader.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{13E33051-1BCA-47D2-B332-2BD7804F1ADE}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesOrderHeaderSalesReason" DTS:refId="Package\Sales_SalesOrderHeaderSalesReason" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesOrderHeaderSalesReason.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{A0CFC3BF-8479-421C-A053-9A0B040E4A75}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesPerson" DTS:refId="Package\Sales_SalesPerson" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesPerson.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{E2FE54CF-A394-461D-8E92-0284A7DC50FE}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesPersonQuotaHistory" DTS:refId="Package\Sales_SalesPersonQuotaHistory" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesPersonQuotaHistory.dtsx</PackageName>
-          <UseProjectReference>True</UseProjectReference>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{F7100599-AB96-45A1-9251-B25BD9E549C9}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="Sales_SalesReason" DTS:refId="Package\Sales_SalesReason" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <PackageName>Sales_SalesReason.dtsx</PackageName>
           <UseProjectReference>True</UseProjectReference>
         </ExecutePackageTask>
       </DTS:ObjectData>

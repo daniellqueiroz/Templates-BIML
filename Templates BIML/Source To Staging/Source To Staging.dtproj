@@ -30,25 +30,8 @@
         </SSIS:Properties>
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="_Master.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_CountryRegionCurrency.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_CreditCard.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Sales_Currency.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_CurrencyRate.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Sales_Customer.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_PersonCreditCard.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesOrderDetail.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesOrderHeader.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesOrderHeaderSalesReason.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesPerson.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesPersonQuotaHistory.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesReason.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesTaxRate.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesTerritory.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SalesTerritoryHistory.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_ShoppingCartItem.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SpecialOffer.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_SpecialOfferProduct.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sales_Store.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="SourceDatabaseConnection.conmgr" />
@@ -179,48 +162,14 @@
           <SSIS:PackageInfo>
             <SSIS:PackageMetaData SSIS:Name="_Master.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{5034FB5C-18AC-46D1-8468-8644745F954B}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{8B8414E2-69CC-49B8-82F9-6F9A665ACE54}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">_Master</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{A5B0C619-9AE1-42DA-A207-75A3DAAEAC53}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_CountryRegionCurrency.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{7557BB90-EFC3-43F1-8BA9-B93A565A47C1}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_CountryRegionCurrency</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{C489A5B3-2D30-440A-B7DF-FABDE36F9D7D}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_CreditCard.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{90618851-0933-4C67-9478-BD591F6EC752}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_CreditCard</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{E502F124-E32A-4A91-8711-E13E9D475611}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{246643E8-D214-40D4-9ECB-593005A05F0F}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -230,31 +179,14 @@
             </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="Sales_Currency.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{E567D81D-EEE4-488C-85E1-712B44092B0C}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{EE2B1035-3D82-4402-B1B9-000A7410AA35}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">Sales_Currency</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{842E3A9E-89B0-4B74-8233-EA7087EFA521}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_CurrencyRate.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{E7E16035-411D-4AE2-9A5F-807D00FA9772}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_CurrencyRate</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{22AF68BC-2C9C-4EAC-A0F5-58D02F91D69A}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{E521C34D-FDED-4B73-A435-70FCEE06E4B0}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -264,252 +196,14 @@
             </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="Sales_Customer.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{7362CA4F-DFB3-4E10-816A-B949A66E3FBF}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{20B28A4F-5CC4-44EA-AECF-6CEFA9C93DB8}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">Sales_Customer</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{CD03FD0E-7AF2-4191-A5C9-E4D8EFB80CF6}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_PersonCreditCard.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{EC5E49C9-CC83-451F-B626-7EC017D66A82}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_PersonCreditCard</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1121C692-8F42-43DD-865C-83DA11D606FE}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesOrderDetail.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{49ACACF2-B37C-4C55-9DE5-860F54085AE3}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesOrderDetail</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{DE509796-288C-49DD-8FF0-109D52851E5E}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesOrderHeader.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{892D64BA-5E9B-4BF7-ACF9-EA2FE09ADE95}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesOrderHeader</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1F20EDE5-987F-4E48-AAF1-C67204B480A0}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesOrderHeaderSalesReason.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{C72D6799-A178-49D7-A6B0-04EE4D9B70FF}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesOrderHeaderSalesReason</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{551AB62F-CB82-4881-888C-C80F3409ACAE}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesPerson.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{7E0FEA27-B90E-4749-868F-6582CE187D03}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesPerson</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{503EE703-0B23-4A94-9A51-CD3FE06FAFA1}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesPersonQuotaHistory.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{4FDAE7FA-4BCC-464E-80DC-1E934F374201}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesPersonQuotaHistory</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{BDE56995-D90D-4467-860E-49985DD65066}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesReason.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{BCC8AA06-9372-4598-B745-BC22103F15DC}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesReason</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{C4A714B7-CE17-44A5-A586-29357E5D8894}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesTaxRate.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{C26B10DC-162F-4951-9163-BEB175D77A07}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesTaxRate</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{0C4235AD-FAA6-4216-B5F6-DA41DEE0B740}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesTerritory.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{15D743BD-CA81-46E3-AA9C-D5CB0DB5B1D1}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesTerritory</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{4B13B648-98F7-4FAF-AE52-A927E755CC97}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SalesTerritoryHistory.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{11E6BFAE-90C1-44CC-BB27-5BB7F9FD1794}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SalesTerritoryHistory</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{845998FE-3BB8-4200-BCD7-982666E08E5D}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_ShoppingCartItem.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{DEEC1AD5-63AA-4B67-9C51-01409F062CCE}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_ShoppingCartItem</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{7220F913-BBEB-46B5-ACEE-00F580BADAE5}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SpecialOffer.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{67C818A1-1061-435C-8FFC-A43274008E06}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SpecialOffer</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{CA23A8E6-C10B-41DD-9AFA-BBD778227D8B}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_SpecialOfferProduct.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{A0112B1D-178A-49A7-929A-313C2840B1CA}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_SpecialOfferProduct</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{28D1563A-0EE4-45B3-BEA0-DA47C647272E}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sales_Store.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{058BAF81-510F-46FB-BEF8-FD2446F7F6F6}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">Sales_Store</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{CCD6C152-79D9-4867-826C-946B350B4ADB}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{4E19C204-659E-4682-89BF-8E0F3BAB3A82}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
