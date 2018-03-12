@@ -1,4 +1,4 @@
-<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="SourceDatabaseConnection" DTS:DTSID="{30C1EB69-7493-46AC-8A34-1E310136C746}" DTS:refId="Package.ConnectionManagers[SourceDatabaseConnection]" DTS:CreationName="OLEDB">
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="SourceDatabaseConnection" DTS:DTSID="{09147502-C684-4BC9-8441-DF38D532295F}" DTS:refId="Package.ConnectionManagers[SourceDatabaseConnection]" DTS:CreationName="OLEDB">
     <DTS:ObjectData><DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ConnectionString="data source=localhost;user id=testuser;initial catalog=AdventureWorks2016;provider=SQLNCLI11">
   <DTS:Password DTS:Name="Password" Sensitive="1"></DTS:Password>
 </DTS:ConnectionManager></DTS:ObjectData>    <DTS:PropertyExpression DTS:Name="ConnectionString">@[$Project::SourceConnectionString]</DTS:PropertyExpression>

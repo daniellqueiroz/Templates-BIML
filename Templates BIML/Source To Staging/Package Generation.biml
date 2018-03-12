@@ -71,7 +71,7 @@
                             </Column>
                         </Columns>
                     </DerivedColumns>
-                    <OleDbDestination Name="Feed Staging" ConnectionName="StagingDatabaseConnection">
+                    <OleDbDestination Name="Feed Staging" ConnectionName="StagingDatabaseConnection" KeepIdentity="true">
                         <TableFromVariableOutput VariableName="User.TableNameTarget"/>
                     </OleDbDestination>
                 </Transformations>

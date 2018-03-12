@@ -1,12 +1,13 @@
 <#@ template language="C#" hostspecific="true"#>
 <#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.OleDb" #>
 
 <#
 
     
-    string SourceConnectionString = @"Data Source=.;Initial Catalog=AdventureWorks2016;Integrated Security=True";
-    //string DestinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
+    string SourceConnectionString = @"Data Source=.;Initial Catalog=AdventureWorks2016;User ID=testuser;Password=12345;";
+    string DestinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
     string destinationSchemaName = "Sales";
 
     string[][] InitialTableList = new string[][]
@@ -22,6 +23,24 @@
         InitialTableList = Array.Empty<string[]>();
         
     };
+    
+            foreach (string[] initialTable in InitialTableList)
+            {
+
+
+                var tableSchema = GetTableSchema(DestinationConnectionString, initialTable, destinationSchemaName);
+                foreach (DataRow column in tableSchema.Rows)
+                {
+                    if (Convert.ToBoolean(column["IsIdentity"]))
+                    {
+                        throw new System.ArgumentException("The next table has identity column in the destination" , "TableName: " + initialTable[1]  + "; ColumnName: " + column["ColumnName"]);
+
+                    }
+
+                }
+
+            }
+    
 
 
 #>
@@ -29,10 +48,7 @@
 <#+
      static int CheckTablesList(string ConnectionString, string[][] TableListToCheck)
     {
-        var AWConnectionString = new SqlConnectionStringBuilder(ConnectionString);
-        AWConnectionString.ApplicationName = "BIML";
 
-        DataTable tables = new DataTable();
         string[] tableRestrictions = new string[4];
 
         foreach (string[] InitialTable in TableListToCheck)
@@ -58,5 +74,35 @@
         }
         return 0;
     }
+#>
+
+<#+
+  static DataTable GetTableSchema(string ConnectionString, string[] tableName, string destinationSchemaName)
+        {
+
+            var selectTable = "select top (0) * from [" + destinationSchemaName + "].[" + tableName[1] + "]";
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = selectTable;
+
+            DataTable schemaTable = new DataTable();
+
+            using (var AWConnection = new SqlConnection(ConnectionString))
+            {
+                if (AWConnection.State == ConnectionState.Closed)
+                {
+                    AWConnection.Open();
+                }
+
+                cmd.Connection = AWConnection;
+                cmd.CommandText = selectTable;
+                var myReader = cmd.ExecuteReader(CommandBehavior.KeyInfo);
+
+                //Retrieve column schema into a DataTable.
+                schemaTable = myReader.GetSchemaTable();
+
+            }
+            return schemaTable;
+        }
 #>
 

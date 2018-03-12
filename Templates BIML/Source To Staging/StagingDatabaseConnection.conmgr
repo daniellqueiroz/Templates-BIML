@@ -1,4 +1,4 @@
-<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="StagingDatabaseConnection" DTS:DTSID="{6B76230E-3F00-4FA2-B4DE-389F746B8957}" DTS:refId="Package.ConnectionManagers[StagingDatabaseConnection]" DTS:CreationName="OLEDB">
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="StagingDatabaseConnection" DTS:DTSID="{DB8CB329-B6A8-4AEA-8219-295B7762AFAB}" DTS:refId="Package.ConnectionManagers[StagingDatabaseConnection]" DTS:CreationName="OLEDB">
     <DTS:ObjectData><DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ConnectionString="data source=localhost;initial catalog=StagingAdventureWorks2016;integrated security=SSPI;provider=SQLNCLI11"></DTS:ConnectionManager></DTS:ObjectData>    <DTS:PropertyExpression DTS:Name="ConnectionString">@[$Project::StagingConnectionString]</DTS:PropertyExpression>
     <DTS:PropertyExpression DTS:Name="Password">@[$Project::StagingPassword]</DTS:PropertyExpression>
 </DTS:ConnectionManager>
