@@ -1,33 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="05/10/2018 12:27:39" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{DE34E72B-C900-4B3E-A729-9AFB879F373B}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_Customer" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{8C61CE9C-7182-4B16-9882-226C7A1CCBCD}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="05/10/2018 19:06:18" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{BAB1E582-60B7-4A72-9D92-EFDF1E651935}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="Sales_Customer" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{3598EF01-41E6-4F26-BB1D-2D77ACF37B4A}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{632EFA01-6099-4CE0-8DBE-318BF7DCD8F9}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{806B0347-072C-479A-8D26-4351D6F75E3F}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">[Sales].[Customer]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{2C883610-20E4-4475-A5B2-BBEC4595F1C4}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{FFDEDD89-2758-4F6E-B85E-15AE5CDB771B}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
+      <DTS:VariableValue DTS:DataType="8">[Sales].[Customer_temp]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{5D25FB33-9653-492A-814C-233D40B20D28}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
       <DTS:VariableValue DTS:DataType="8">[Sales].[Customer]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{0AD9D0CB-CB10-41F2-AA1E-29E2C9CAAA65}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTarget]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
-      <DTS:VariableValue DTS:DataType="8">truncate table [Sales].[Customer]</DTS:VariableValue>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{802A37A9-2A3E-41AC-8D1B-2976FDD7AB00}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="IncrementalColumnName">
+      <DTS:VariableValue DTS:DataType="8">[]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{A66197F4-0A55-4A07-A6F3-C39BF727CDD5}" DTS:EvaluateAsExpression="True" DTS:Expression="GETDATE()" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="StagingLoadDate">
-      <DTS:VariableValue DTS:DataType="7">05/10/2018 12:27:39</DTS:VariableValue>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{E0FCEA47-9106-4DAD-BC2B-3E16B2AACFB9}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+      <DTS:VariableValue DTS:DataType="8">truncate table [Sales].[Customer_temp]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{FA328C12-A40A-4F0C-B1B9-08E837931650}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select convert(nvarchar(30), max(tbl.&quot; + @[User::IncrementalColumnName] + &quot;), 126) as md from &quot; + @[User::TableNameTarget] + &quot; as tbl&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_GetMaxDateTarget">
+      <DTS:VariableValue DTS:DataType="8">select convert(nvarchar(30), max(tbl.[]), 126) as md from [Sales].[Customer] as tbl</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{270A39A3-1838-4345-8693-510C56689F7B}" DTS:EvaluateAsExpression="True" DTS:Expression="@[User::IncrementalColumnName] != &quot;[]&quot; ? &quot;select * from &quot; + @[User::TableNameTarget] + &quot; as tbl where tbl.&quot; + @[User::IncrementalColumnName] + &quot;&gt;='&quot; + @[User::StagingMaxDate] + &quot;'&quot; : &quot;select * from &quot; + @[User::TableNameTarget] + &quot; as tbl&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_GetSourceData">
+      <DTS:VariableValue DTS:DataType="8">select * from [Sales].[Customer] as tbl</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B81D45DA-35BC-43EB-93A4-5715217DD669}" DTS:EvaluateAsExpression="True" DTS:Expression="GETDATE()" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="StagingLoadDate">
+      <DTS:VariableValue DTS:DataType="7">05/10/2018 19:06:18</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{BF0BC7BA-1C32-4F55-80AE-D2C49639E0FD}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="StagingMaxDate">
+      <DTS:VariableValue DTS:DataType="8">19000101</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{21657533-8BA1-435B-B11C-0E30ACEC186F}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="truncate Staging table Sales_Customer" DTS:refId="Package\truncate Staging table Sales_Customer" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{05C2B3A7-9874-43FE-8B92-B56F158040AF}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Get Max Date From Target Sales_Customer" DTS:refId="Package\Get Max Date From Target Sales_Customer" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_GetMaxDateTarget" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::StagingMaxDate" SQLTask:ResultName="md"></SQLTask:ResultBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{2DCEA188-0D56-4543-AE5D-AFDA3694124C}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table Sales_Customer" DTS:refId="Package\Truncate Intermediate table Sales_Customer" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{1C78D150-B1A5-449E-A64A-77E1BA7C79E9}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Staging" DTS:refId="Package\Moving Data from Source to Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{76892636-FDC4-4142-B87D-E9AB47082F20}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Staging" DTS:refId="Package\Moving Data from Source to Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
           <components>
             <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Moving Data from Source to Staging\Query Source" usesDispositions="true" version="7">
               <connections>
-                <connection connectionManagerID="{09147502-C684-4BC9-8441-DF38D532295F}:external" connectionManagerRefId="Project.ConnectionManagers[SourceDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Query Source.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{11A66E5B-E7FE-45ED-BBE1-07C311FEE6DB}:external" connectionManagerRefId="Project.ConnectionManagers[SourceDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Query Source.Connections[OleDbConnection]"></connection>
               </connections>
               <outputs>
                 <output name="Output" refId="Package\Moving Data from Source to Staging\Query Source.Outputs[Output]">
@@ -68,12 +90,12 @@
               <properties>
                 <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
                 <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
-                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameSource</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
                 <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable">User::SQL_GetSourceData</property>
                 <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
                 <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
-                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">1</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">3</property>
                 <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
               </properties>
             </component>
@@ -106,7 +128,7 @@
             </component>
             <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging" usesDispositions="true" version="4">
               <connections>
-                <connection connectionManagerID="{DB8CB329-B6A8-4AEA-8219-295B7762AFAB}:external" connectionManagerRefId="Project.ConnectionManagers[StagingDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Feed Staging.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{64CEE162-512C-41DD-A221-3499D49B13B4}:external" connectionManagerRefId="Project.ConnectionManagers[StagingDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Moving Data from Source to Staging\Feed Staging.Connections[OleDbConnection]"></connection>
               </connections>
               <inputs>
                 <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Add new columns_Output_Feed Staging" refId="Package\Moving Data from Source to Staging\Feed Staging.Inputs[Add new columns_Output_Feed Staging]">
@@ -165,6 +187,7 @@
     </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{CAC2FC39-856D-4432-A26A-01DE7B15E172}" DTS:From="Package\truncate Staging table Sales_Customer" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_truncate Staging table Sales_Customer_To_Moving Data from Source to Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_truncate Staging table Sales_Customer_To_Moving Data from Source to Staging]" DTS:To="Package\Moving Data from Source to Staging"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{ECDDFACA-99DD-49DC-BB45-873015FF0D10}" DTS:From="Package\Get Max Date From Target Sales_Customer" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Get Max Date From Target Sales_Customer_To_Truncate Intermediate table Sales_Customer" DTS:refId="Package.PrecedenceConstraints[Constraint_Get Max Date From Target Sales_Customer_To_Truncate Intermediate table Sales_Customer]" DTS:To="Package\Truncate Intermediate table Sales_Customer"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{14CCBE38-A39E-4941-B41B-238F35619266}" DTS:From="Package\Truncate Intermediate table Sales_Customer" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table Sales_Customer_To_Moving Data from Source to Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table Sales_Customer_To_Moving Data from Source to Staging]" DTS:To="Package\Moving Data from Source to Staging"></DTS:PrecedenceConstraint>
   </DTS:PrecedenceConstraints>
 </DTS:Executable>

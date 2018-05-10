@@ -17,7 +17,7 @@
 <#
     foreach (string[] InitialTable in InitialTableList)
     {
-        var packageName = destinationSchemaName + "_" + InitialTable[1];
+        var packageName = InitialTable[0] +"_" + InitialTable[1];
 #>       
             <Package PackageName="<#=packageName#>"/>
 <#}#>
@@ -30,7 +30,7 @@
 <#
     foreach (string[] InitialTable in InitialTableList)
     {
-        var packageName = destinationSchemaName + "_" + InitialTable[1];
+        var packageName = InitialTable[0] +"_" + InitialTable[1];
         var sourceTableName = "[" + InitialTable[0] +"].[" + InitialTable[1] + "]";
         var destinationTableName = "[" + destinationSchemaName +"].[" + InitialTable[1] + "]";
 #>
@@ -56,7 +56,7 @@
             <Variable Name="StagingLoadDate" DataType="DateTime" EvaluateAsExpression="true">GETDATE()</Variable>
         </Variables>
         <Tasks>
-            <ExecuteSQL Name="<#="truncate Staging table " + packageName#>" ConnectionName="StagingDatabaseConnection">
+            <ExecuteSQL Name="<#="truncate Staging table" + packageName#>" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_truncate"/>
             </ExecuteSQL>
             <Dataflow Name="Moving Data from Source to Staging">
@@ -85,7 +85,7 @@
             <#
     foreach (string[] InitialTable in InitialTableList)
     {
-        var packageName = destinationSchemaName + "_" + InitialTable[1];
+        var packageName = InitialTable[0] +"_" + InitialTable[1];
             #>
                     <ExecutePackage Name="<#=packageName.Replace("."," ")#>">
                        <ExternalProjectPackage Package="<#=packageName + ".dtsx"#>"/>

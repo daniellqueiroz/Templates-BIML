@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="SourceDatabaseConnection" DTS:DTSID="{09147502-C684-4BC9-8441-DF38D532295F}" DTS:refId="Package.ConnectionManagers[SourceDatabaseConnection]" DTS:CreationName="OLEDB">
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="SourceDatabaseConnection" DTS:DTSID="{11A66E5B-E7FE-45ED-BBE1-07C311FEE6DB}" DTS:refId="Package.ConnectionManagers[SourceDatabaseConnection]" DTS:CreationName="OLEDB">
   <DTS:ObjectData>
     <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ConnectionString="data source=localhost;user id=testuser;initial catalog=AdventureWorks2016;provider=SQLNCLI11">
       <DTS:Password DTS:Name="Password" Sensitive="1"></DTS:Password>

@@ -1,0 +1,97 @@
+<#@ template language="C#" hostspecific="true"#>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.OleDb" #>
+
+<#@include file="0_Parameters.biml"#>
+
+<#
+
+    if(CheckTablesList(sourceConnectionString, initialTableList) != 0)
+    {
+        initialTableList = Array.Empty<string[]>();
+        
+    };
+    
+            foreach (string[] initialTable in initialTableList)
+            {
+
+
+                var tableSchema = GetTableSchema(destinationConnectionString, initialTable, destinationSchemaName);
+                foreach (DataRow column in tableSchema.Rows)
+                {
+                    if (Convert.ToBoolean(column["IsIdentity"]))
+                    {
+                        throw new System.ArgumentException("The next table has identity column in the destination" , "TableName: " + initialTable[1]  + "; ColumnName: " + column["ColumnName"]);
+
+                    }
+
+                }
+
+            }
+    
+
+
+#>
+
+<#+
+     static int CheckTablesList(string connectionString, string[][] tableListToCheck)
+    {
+
+        string[] tableRestrictions = new string[4];
+
+        foreach (string[] initialTable in tableListToCheck)
+        {
+            using (var AWConnection = new SqlConnection(connectionString))
+            {
+
+                tableRestrictions[1] = initialTable[0]; //Table Schema
+                tableRestrictions[2] = initialTable[1]; //Table Name
+
+
+                if (AWConnection.State == ConnectionState.Closed)
+                {
+                    AWConnection.Open();
+                }
+                
+                if (AWConnection.GetSchema(System.Data.SqlClient.SqlClientMetaDataCollectionNames.Tables, tableRestrictions).Rows.Count == 0)
+                {
+                    throw new System.ArgumentException("Can't find all the specified tables in the Source", initialTable[1]);
+                };
+
+            }
+        }
+        return 0;
+    }
+#>
+
+<#+
+  static DataTable GetTableSchema(string connectionString, string[] tableName, string destinationSchemaName)
+        {
+
+            var selectTable = "select top (0) * from [" + destinationSchemaName + "].[" + tableName[1] + "]";
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = selectTable;
+
+            DataTable schemaTable = new DataTable();
+
+            using (var AWConnection = new SqlConnection(connectionString))
+            {
+                if (AWConnection.State == ConnectionState.Closed)
+                {
+                    AWConnection.Open();
+                }
+
+                cmd.Connection = AWConnection;
+                cmd.CommandText = selectTable;
+                var myReader = cmd.ExecuteReader(CommandBehavior.KeyInfo);
+
+                //Retrieve column schema into a DataTable.
+                schemaTable = myReader.GetSchemaTable();
+
+            }
+            return schemaTable;
+        }
+#>
+

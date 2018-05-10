@@ -148,5 +148,7 @@
     <Build Include="Security\Production.sql" />
     <Build Include="Security\Person.sql" />
     <Build Include="Security\HumanResources.sql" />
+    <Build Include="Sales\Tables\Currency_temp.sql" />
+    <Build Include="Sales\Tables\Customer_temp.sql" />
   </ItemGroup>
 </Project>

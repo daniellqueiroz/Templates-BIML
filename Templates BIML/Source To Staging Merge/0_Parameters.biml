@@ -1,0 +1,14 @@
+<#@ template language="C#" hostspecific="true"#>
+<#
+    string sourceConnectionString = @"Data Source=.;Initial Catalog=AdventureWorks2016;User ID=testuser;Password=12345;";
+    string destinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
+    string destinationSchemaName = "Sales";
+
+    string[][] initialTableList = new string[][]
+    {
+        new string[] {"Sales","Currency","ModifiedDate"},
+        new string[] {"Sales","Customer",""}
+        
+    };
+    
+ #>  
