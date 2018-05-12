@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Sales].[Customer_temp] (
+﻿CREATE TABLE [SalesStg].[Customer_temp] (
     [CustomerID]    INT            NOT NULL,
     [PersonID]      INT              NULL,
     [StoreID]       INT              NULL,

@@ -1,0 +1,78 @@
+<#@ template language="C#" hostspecific="true"#>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.OleDb" #>
+
+<#@include file="2_1_CodeMetadataLoading.biml"#>
+<#+
+
+static string GetSQLTruncate (string tableName)
+{
+    return @"""truncate table "" + " + tableName;
+}
+
+static string GetSQLGetMaxDate (string tableName, string columnName)
+{
+    return @"""select convert(nvarchar(30), max(tbl."" + " + columnName + @" + ""), 126) as md from "" + " + tableName +@" + "" as tbl""";
+
+}
+
+static string GetSQLGetSourceData (string columnName)
+{
+//"","", ""
+    if(columnName != "[]") 
+            return  @"""select * from "" + @[User::TableNameSource] + ""as tbl where tbl."" + @[User::IncrementalColumnName] + "">='"" + @[User::StagingMaxDate] + ""';""";
+    else    return  @"""select * from "" + @[User::TableNameSource] + "" as tbl;""";
+
+    
+//    "select convert(nvarchar(30), max(tbl." + columnName + "), 126) as md from " + tableName +" as tbl";
+
+}
+
+static string GenerateMergeStatement(string tableSource, string tableTarget, string connectionString, string stagingLoadDateColumn)
+{
+
+    stagingLoadDateColumn = stagingLoadDateColumn.Replace("[", "").Replace("]","");
+
+    var tableSchema = GetTableSchema(connectionString, tableTarget);
+
+    var columnAll = (from DataRow col in tableSchema.Rows
+                        select col["ColumnName"]).ToList();
+    var columnPrimaryKey = (from DataRow col in tableSchema.Rows
+                            where Convert.ToBoolean(col["IsKey"]) == true
+                            select col["ColumnName"]).ToList();
+
+    var mainColumns = (from DataRow col in tableSchema.Rows
+                        where Convert.ToBoolean(col["IsKey"]) == false
+                                & Convert.ToString(col["ColumnName"]) != stagingLoadDateColumn
+                        select col["ColumnName"]).ToList();
+
+    var mainColumnsPlusStagingDate = (from DataRow col in tableSchema.Rows
+                                        where Convert.ToBoolean(col["IsKey"]) == false
+                                        select col["ColumnName"]).ToList();
+
+
+    var onPart = string.Join(" and ", columnPrimaryKey.Select(n => $"[target].[{n}] = [source].[{n}]"));
+    var existsSelectSource = string.Join(", ", mainColumns.Select(n => $"[source].[{n}]"));
+    var existsSelectTarget = string.Join(", ", mainColumns.Select(n => $"[target].[{n}]"));
+    var updatePart = string.Join(", ", mainColumnsPlusStagingDate.Select(n => $"[target].[{n}] = [source].[{n}]"));
+    var insertPart = string.Join (", ", columnAll.Select(n => $"[{n}]"));
+    var insertValuesPart = string.Join(", ", columnAll.Select(n => $"[source].[{n}]"));
+
+    var merge = 
+$@"
+merge {tableTarget} as [target]
+using {tableSource} as [source] 
+    on {onPart}
+when matched
+    and exists(select {existsSelectSource}
+            except select {existsSelectTarget})
+    then update set {updatePart}
+when not matched by target
+    then insert ({insertPart})
+    values ({insertValuesPart});
+";
+    return merge;
+}
+
+#>

@@ -2,12 +2,14 @@
 <#
     string sourceConnectionString = @"Data Source=.;Initial Catalog=AdventureWorks2016;User ID=testuser;Password=12345;";
     string destinationConnectionString = @"Data Source=.;Initial Catalog=StagingAdventureWorks2016;Integrated Security=True";
-    string destinationSchemaName = "Sales";
+    string stagingLoadDateColumn = "Staging Load Date";
 
+    // ([Source Schema Name], [Table Name], [Incremental Column Name], [Destination Schema Name] , [Merge/Switch], [Add Deletion]
+    
     string[][] initialTableList = new string[][]
     {
-        new string[] {"Sales","Currency","ModifiedDate"},
-        new string[] {"Sales","Customer",""}
+        new string[] {"Sales", "Currency", "ModifiedDate", "SalesStg", "Merge"     , "Delete"},
+        new string[] {"Sales", "Customer", ""            , "SalesStg", "Switch"    , ""}
         
     };
     

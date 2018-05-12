@@ -17,12 +17,12 @@
             {
 
 
-                var tableSchema = GetTableSchema(destinationConnectionString, initialTable, destinationSchemaName);
+                var tableSchema = GetTableSchema(destinationConnectionString, "[" + initialTable[3] + "].[" + initialTable[1] + "]");
                 foreach (DataRow column in tableSchema.Rows)
                 {
                     if (Convert.ToBoolean(column["IsIdentity"]))
                     {
-                        throw new System.ArgumentException("The next table has identity column in the destination" , "TableName: " + initialTable[1]  + "; ColumnName: " + column["ColumnName"]);
+                        throw new System.ArgumentException("The next table has an identity column in the destination" , "TableName: " + initialTable[1]  + "; ColumnName: " + column["ColumnName"]);
 
                     }
 
@@ -66,10 +66,10 @@
 #>
 
 <#+
-  static DataTable GetTableSchema(string connectionString, string[] tableName, string destinationSchemaName)
+  static DataTable GetTableSchema(string connectionString, string tableName)
         {
 
-            var selectTable = "select top (0) * from [" + destinationSchemaName + "].[" + tableName[1] + "]";
+            var selectTable = "select top (0) * from " + tableName;
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = selectTable;
@@ -93,5 +93,5 @@
             }
             return schemaTable;
         }
-#>
+ #>
 

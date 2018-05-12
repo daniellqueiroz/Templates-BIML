@@ -1,6 +1,6 @@
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
-<#@include file="2_1_CodeMetadataLoading.biml"#>
-<#@include file="2_2_CodeSQLBuilders.biml"#>
+
+<#@include file="2_2_ExecuteSQLBuilders.biml"#>
 
 <Connections>
     <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="Data Source=localhost;User ID=testuser;Initial Catalog=AdventureWorks2016;Provider=SQLNCLI11;Password=12345;" RetainSameConnection="true"></OleDbConnection>
@@ -18,7 +18,7 @@
 <#
     foreach (string[] initialTable in initialTableList)
     {
-        var packageName = destinationSchemaName + "_" + initialTable[1];
+        var packageName = initialTable[3] + "_" + initialTable[1];
 #>       
             <Package PackageName="<#=packageName#>"/>
 <#}#>
@@ -31,10 +31,10 @@
 <#
     foreach (string[] initialTable in initialTableList)
     {
-        var packageName = destinationSchemaName + "_" + initialTable[1];
+        var packageName = initialTable[3] + "_" + initialTable[1];
         var sourceTableName = "[" + initialTable[0] +"].[" + initialTable[1] + "]";
-        var intermediateTableName = "[" + destinationSchemaName +"].[" + initialTable[1] + "_temp]";
-        var destinationTableName = "[" + destinationSchemaName +"].[" + initialTable[1] + "]";
+        var intermediateTableName = "[" + initialTable[3] +"].[" + initialTable[1] + "_temp]";
+        var destinationTableName = "[" + initialTable[3] +"].[" + initialTable[1] + "]";
         var incrementalColumnName = "[" + initialTable[2] + "]";
 #>
     <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="DontSaveSensitive">
@@ -56,40 +56,57 @@
             <Variable Name="TableNameSource" DataType="String" EvaluateAsExpression="false"><#=sourceTableName#></Variable>
             <Variable Name="TableNameTemp" DataType="String" EvaluateAsExpression="false"><#=intermediateTableName#></Variable>
             <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=destinationTableName#></Variable>
-            <Variable Name="IncrementalColumnName" DataType="String" EvaluateAsExpression="false"><#=incrementalColumnName#></Variable>
             <Variable Name="SQL_truncate" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncate("@[User::TableNameTemp]")#></Variable>
-            <Variable Name="SQL_GetMaxDateTarget" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetMaxDate("@[User::TableNameTarget]","@[User::IncrementalColumnName]")#></Variable>
-            
-            <Variable Name="SQL_GetSourceData" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetSourceData("@[User::TableNameTarget]","@[User::IncrementalColumnName]", "@[User::StagingMaxDate]")#></Variable>
-            
+            <Variable Name="SQL_GetSourceData" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetSourceData(incrementalColumnName)#></Variable>
             <Variable Name="StagingLoadDate" DataType="DateTime" EvaluateAsExpression="true">GETDATE()</Variable>
+
+<#
+if(incrementalColumnName != "[]")
+{
+#>
             <Variable Name="StagingMaxDate" DataType="String" EvaluateAsExpression="false">19000101</Variable>
+            <Variable Name="SQL_GetMaxDateTarget" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetMaxDate("@[User::TableNameTarget]","@[User::IncrementalColumnName]")#></Variable>                
+            <Variable Name="IncrementalColumnName" DataType="String" EvaluateAsExpression="false"><#=incrementalColumnName#></Variable>            
+<#
+}
+#>
         </Variables>
         <Tasks>
-            <ExecuteSQL Name="<#="Get Max Date From Target " + packageName#>" ConnectionName="StagingDatabaseConnection">
+<#
+if(incrementalColumnName != "[]")
+{
+#>
+            <ExecuteSQL Name="<#="Get Max Date From Target " + packageName#>" ConnectionName="StagingDatabaseConnection" ResultSet="SingleRow">
                 <VariableInput VariableName="User.SQL_GetMaxDateTarget"/>
                 <Results>
                     <Result Name="md" VariableName="User.StagingMaxDate"/>
                 </Results>
             </ExecuteSQL>
+<#
+}
+#>
+            
             <ExecuteSQL Name="<#="Truncate Intermediate table " + packageName#>" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_truncate"/>
             </ExecuteSQL>
-            <Dataflow Name="Moving Data from Source to Staging">
+            <Dataflow Name="Moving Data from Source to Intermediate table of Staging">
                 <Transformations>
                     <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
                         <VariableInput VariableName="User.SQL_GetSourceData"/>
                     </OleDbSource>
                     <DerivedColumns Name="Add new columns">
                         <Columns>
-                            <Column Name="Staging Load Date" DataType="DateTime">@[User::StagingLoadDate]</Column>
+                            <Column Name="<#=stagingLoadDateColumn#>" DataType="DateTime">@[User::StagingLoadDate]</Column>
                         </Columns>
                     </DerivedColumns>
                     <OleDbDestination Name="Feed Staging" ConnectionName="StagingDatabaseConnection" KeepIdentity="true">
-                        <TableFromVariableOutput VariableName="User.TableNameTarget"/>
+                        <TableFromVariableOutput VariableName="User.TableNameTemp"/>
                     </OleDbDestination>
                 </Transformations>
             </Dataflow>
+            <ExecuteSQL Name="<#="Merge Intermediate table with Staging" + packageName#>" ConnectionName="StagingDatabaseConnection">
+                <DirectInput><#= GenerateMergeStatement(intermediateTableName, destinationTableName, destinationConnectionString, stagingLoadDateColumn)#></DirectInput>
+            </ExecuteSQL>
         </Tasks>
     </Package>
 <#}#>
@@ -99,7 +116,7 @@
             <#
     foreach (string[] initialTable in initialTableList)
     {
-        var packageName = destinationSchemaName + "_" + initialTable[1];
+        var packageName = initialTable[3] + "_" + initialTable[1];
             #>
                     <ExecutePackage Name="<#=packageName.Replace("."," ")#>">
                        <ExternalProjectPackage Package="<#=packageName + ".dtsx"#>"/>

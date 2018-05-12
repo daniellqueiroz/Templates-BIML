@@ -1,4 +1,4 @@
-﻿CREATE TABLE [Sales].[Currency_temp] (
+﻿CREATE TABLE [SalesStg].[Currency_temp] (
     [CurrencyCode] NCHAR (3)     NOT NULL,
     [Name]         NVARCHAR (50) NOT NULL,
     [ModifiedDate] DATETIME      NOT NULL,
