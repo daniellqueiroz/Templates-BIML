@@ -1,10 +1,10 @@
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
 
-<#@include file="2_2_ExecuteSQLBuilders.biml"#>
+<#@include file="2_1_Variables Builder.biml"#>
 
 <Connections>
-    <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="Data Source=localhost;User ID=testuser;Initial Catalog=AdventureWorks2016;Provider=SQLNCLI11;Password=12345;" RetainSameConnection="true"></OleDbConnection>
-    <OleDbConnection CreateInProject="true" Name="StagingDatabaseConnection" ConnectionString="Data Source=localhost;Initial Catalog=StagingAdventureWorks2016;Integrated Security=SSPI;Provider=SQLNCLI11;" ></OleDbConnection>
+    <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="<#=$"{sourceConnectionString};Provider=SQLNCLI11;"#>"></OleDbConnection>
+    <OleDbConnection CreateInProject="true" Name="StagingDatabaseConnection" ConnectionString="<#=$"{destinationConnectionString};Provider=SQLNCLI11;"#>"></OleDbConnection>
 </Connections>
 <Projects>
     <PackageProject Name="Source To Staging" ProtectionLevel="DontSaveSensitive">
@@ -18,7 +18,7 @@
 <#
     foreach (string[] initialTable in initialTableList)
     {
-        var packageName = initialTable[3] + "_" + initialTable[1];
+        var packageName = $"{initialTable[3]}_{initialTable[1]}";
 #>       
             <Package PackageName="<#=packageName#>"/>
 <#}#>
@@ -31,11 +31,12 @@
 <#
     foreach (string[] initialTable in initialTableList)
     {
-        var packageName = initialTable[3] + "_" + initialTable[1];
-        var sourceTableName = "[" + initialTable[0] +"].[" + initialTable[1] + "]";
-        var intermediateTableName = "[" + initialTable[3] +"].[" + initialTable[1] + "_temp]";
-        var destinationTableName = "[" + initialTable[3] +"].[" + initialTable[1] + "]";
-        var incrementalColumnName = "[" + initialTable[2] + "]";
+        var packageName = $"{initialTable[3]}_{initialTable[1]}";
+        var sourceTableName = $"[{initialTable[0]}].[{initialTable[1]}]";
+        var intermediateTableName = $"[{initialTable[3]}].[{initialTable[1]}_temp]";
+        var destinationTableName = $"[{initialTable[3]}].[{initialTable[1]}]";
+        var incrementalColumnName = $"[{initialTable[2]}]";
+        bool isMerge = initialTable[4] == "Merge" ? true : false;
 #>
     <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="DontSaveSensitive">
         <Connections>
@@ -56,16 +57,31 @@
             <Variable Name="TableNameSource" DataType="String" EvaluateAsExpression="false"><#=sourceTableName#></Variable>
             <Variable Name="TableNameTemp" DataType="String" EvaluateAsExpression="false"><#=intermediateTableName#></Variable>
             <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=destinationTableName#></Variable>
-            <Variable Name="SQL_truncate" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncate("@[User::TableNameTemp]")#></Variable>
-            <Variable Name="SQL_GetSourceData" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetSourceData(incrementalColumnName)#></Variable>
+            <Variable Name="SQL_truncate" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncate()#></Variable>
+            <Variable Name="SQL_selectsource" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetSourceData(incrementalColumnName)#></Variable>
             <Variable Name="StagingLoadDate" DataType="DateTime" EvaluateAsExpression="true">GETDATE()</Variable>
+<#
+if(isMerge == true)
+{
+#>
+            <Variable Name="SQL_merge" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatement(intermediateTableName, destinationTableName, destinationConnectionString, stagingLoadDateColumn)#></Variable>
+<#
+}
+else
+{
+#>
+            <Variable Name="SQL_switch" DataType="String" EvaluateAsExpression="true"><#=GetSQLSwitch()#></Variable>
+<#
+}
+#>          
+            
 
 <#
 if(incrementalColumnName != "[]")
 {
 #>
-            <Variable Name="StagingMaxDate" DataType="String" EvaluateAsExpression="false">19000101</Variable>
-            <Variable Name="SQL_GetMaxDateTarget" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetMaxDate("@[User::TableNameTarget]","@[User::IncrementalColumnName]")#></Variable>                
+            <Variable Name="StagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="false">19000101</Variable>
+            <Variable Name="SQL_getStagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetStagingMaxIncrementalValue(sourceConnectionString, sourceTableName, incrementalColumnName)#></Variable>                
             <Variable Name="IncrementalColumnName" DataType="String" EvaluateAsExpression="false"><#=incrementalColumnName#></Variable>            
 <#
 }
@@ -76,23 +92,23 @@ if(incrementalColumnName != "[]")
 if(incrementalColumnName != "[]")
 {
 #>
-            <ExecuteSQL Name="<#="Get Max Date From Target " + packageName#>" ConnectionName="StagingDatabaseConnection" ResultSet="SingleRow">
-                <VariableInput VariableName="User.SQL_GetMaxDateTarget"/>
+            <ExecuteSQL Name="<#=$"Get Max Date From Target {packageName}"#>" ConnectionName="StagingDatabaseConnection" ResultSet="SingleRow">
+                <VariableInput VariableName="User.SQL_getStagingMaxIncrementalValue"/>
                 <Results>
-                    <Result Name="md" VariableName="User.StagingMaxDate"/>
+                    <Result Name="md" VariableName="User.StagingMaxIncrementalValue"/>
                 </Results>
             </ExecuteSQL>
 <#
 }
 #>
             
-            <ExecuteSQL Name="<#="Truncate Intermediate table " + packageName#>" ConnectionName="StagingDatabaseConnection">
+            <ExecuteSQL Name="<#=$"Truncate Intermediate table {packageName}"#>" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_truncate"/>
             </ExecuteSQL>
             <Dataflow Name="Moving Data from Source to Intermediate table of Staging">
                 <Transformations>
                     <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
-                        <VariableInput VariableName="User.SQL_GetSourceData"/>
+                        <VariableInput VariableName="User.SQL_selectsource"/>
                     </OleDbSource>
                     <DerivedColumns Name="Add new columns">
                         <Columns>
@@ -104,9 +120,24 @@ if(incrementalColumnName != "[]")
                     </OleDbDestination>
                 </Transformations>
             </Dataflow>
-            <ExecuteSQL Name="<#="Merge Intermediate table with Staging" + packageName#>" ConnectionName="StagingDatabaseConnection">
-                <DirectInput><#= GenerateMergeStatement(intermediateTableName, destinationTableName, destinationConnectionString, stagingLoadDateColumn)#></DirectInput>
+<#
+if(isMerge == true)
+{
+#>
+            <ExecuteSQL Name="<#=$"Merge Intermediate table with Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+                <VariableInput VariableName="User.SQL_merge"/>
             </ExecuteSQL>
+<#
+}
+else
+{
+#>
+            <ExecuteSQL Name="<#=$"Switch Partition of Intermediate table to Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+                <VariableInput VariableName="User.SQL_switch"/>
+            </ExecuteSQL>
+<#
+}
+#>
         </Tasks>
     </Package>
 <#}#>
@@ -116,10 +147,10 @@ if(incrementalColumnName != "[]")
             <#
     foreach (string[] initialTable in initialTableList)
     {
-        var packageName = initialTable[3] + "_" + initialTable[1];
+        var packageName = $"{initialTable[3]}_{initialTable[1]}";
             #>
                     <ExecutePackage Name="<#=packageName.Replace("."," ")#>">
-                       <ExternalProjectPackage Package="<#=packageName + ".dtsx"#>"/>
+                       <ExternalProjectPackage Package="<#=$"{packageName}.dtsx"#>"/>
                     </ExecutePackage>
             <#}#>
          </Tasks>

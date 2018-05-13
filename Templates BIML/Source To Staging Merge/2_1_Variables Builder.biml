@@ -3,25 +3,33 @@
 <#@ import namespace="System.Data" #>
 <#@ import namespace="System.Data.OleDb" #>
 
-<#@include file="2_1_CodeMetadataLoading.biml"#>
+<#@include file="2_2_SQL Metadata Methods.biml"#>
 <#+
 
-static string GetSQLTruncate (string tableName)
+static string GetSQLTruncate()
 {
-    return @"""truncate table "" + " + tableName;
+    return @"""truncate table "" + @[User::TableNameTemp]";
 }
 
-static string GetSQLGetMaxDate (string tableName, string columnName)
+static string GetSQLGetStagingMaxIncrementalValue(string connectionString, string tableName, string columnName)
 {
-    return @"""select convert(nvarchar(30), max(tbl."" + " + columnName + @" + ""), 126) as md from "" + " + tableName +@" + "" as tbl""";
+    var tableSchema = GetTableSchema(connectionString, tableName);
+
+    var columnDataType = (from DataRow col in tableSchema.Rows
+                    where Convert.ToString(col["ColumnName"]) == columnName.Replace("[", "").Replace("]", "")
+                    select col["DataType"].ToString()).ToList().FirstOrDefault();
+
+    if (columnDataType == "System.DateTime")
+        return @"""select convert(nvarchar(30), max(tbl."" + @[User::IncrementalColumnName]  + ""), 126) as md from "" + @[User::TableNameTarget] + "" as tbl""";
+    else return @"""select convert(nvarchar(30), max(tbl."" + @[User::IncrementalColumnName]  + "")) as md from "" + @[User::TableNameTarget] + "" as tbl"""; ;
 
 }
 
-static string GetSQLGetSourceData (string columnName)
+static string GetSQLGetSourceData(string columnName)
 {
 //"","", ""
     if(columnName != "[]") 
-            return  @"""select * from "" + @[User::TableNameSource] + ""as tbl where tbl."" + @[User::IncrementalColumnName] + "">='"" + @[User::StagingMaxDate] + ""';""";
+            return  @"""select * from "" + @[User::TableNameSource] + ""as tbl where tbl."" + @[User::IncrementalColumnName] + "">='"" + @[User::StagingMaxIncrementalValue] + ""';""";
     else    return  @"""select * from "" + @[User::TableNameSource] + "" as tbl;""";
 
     
@@ -61,7 +69,7 @@ static string GenerateMergeStatement(string tableSource, string tableTarget, str
 
     var merge = 
 $@"
-merge {tableTarget} as [target]
+""merge {tableTarget} as [target]
 using {tableSource} as [source] 
     on {onPart}
 when matched
@@ -71,8 +79,24 @@ when matched
 when not matched by target
     then insert ({insertPart})
     values ({insertValuesPart});
-";
+""";
     return merge;
+}
+
+static string GetSQLSwitch()
+{
+    return $@"
+""begin tran;
+
+truncate table ""+ @[User::TableNameTarget] + "";
+
+
+alter table ""+ @[User::TableNameTemp] + ""
+            switch to "" + @[User::TableNameTarget] + ""
+
+commit;
+    
+""";
 }
 
 #>
