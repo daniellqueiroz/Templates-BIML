@@ -34,9 +34,11 @@
         var packageName = $"{initialTable[3]}_{initialTable[1]}";
         var sourceTableName = $"[{initialTable[0]}].[{initialTable[1]}]";
         var intermediateTableName = $"[{initialTable[3]}].[{initialTable[1]}_temp]";
+        var intermediateDeleteTableName = $"[{initialTable[3]}].[{initialTable[1]}_temp_delete]";
         var destinationTableName = $"[{initialTable[3]}].[{initialTable[1]}]";
         var incrementalColumnName = $"[{initialTable[2]}]";
-        bool isMerge = initialTable[4] == "Merge" ? true : false;
+        bool isMerge = initialTable[4] == "MergeUpsert" || initialTable[4] == "MergeDelete" ? true : false;
+        bool isDelete = initialTable[4] == "MergeDelete" ? true : false;
 #>
     <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="DontSaveSensitive">
         <Connections>
@@ -66,6 +68,17 @@ if(isMerge == true)
 #>
             <Variable Name="SQL_merge" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatement(intermediateTableName, destinationTableName, destinationConnectionString, stagingLoadDateColumn)#></Variable>
 <#
+if(isDelete == true)
+{
+#>
+    <Variable Name="TableNameTempDelete" DataType="String" EvaluateAsExpression="false"><#=intermediateDeleteTableName#></Variable>
+    <Variable Name="SQL_selectsourcePK" DataType="String" EvaluateAsExpression="true"><#=GenerateSelectPKStatementForDelete(sourceTableName, sourceConnectionString)#></Variable>
+    <Variable Name="SQL_mergeDelete" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatementForDelete(intermediateDeleteTableName, destinationTableName, destinationConnectionString)#></Variable>
+    <Variable Name="SQL_truncateDelete" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncateDelete()#></Variable>
+<#
+}
+#>
+<#
 }
 else
 {
@@ -86,6 +99,8 @@ if(incrementalColumnName != "[]")
 <#
 }
 #>
+    
+
         </Variables>
         <Tasks>
 <#
@@ -124,9 +139,35 @@ if(incrementalColumnName != "[]")
 if(isMerge == true)
 {
 #>
-            <ExecuteSQL Name="<#=$"Merge Intermediate table with Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+            <ExecuteSQL Name="<#=$"MergeUpsert Intermediate table with Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_merge"/>
             </ExecuteSQL>
+<#
+if(isDelete == true)
+{
+#>
+            <ExecuteSQL Name="<#=$"Truncate before Delete Intermediate table {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+                <VariableInput VariableName="User.SQL_truncateDelete"/>
+            </ExecuteSQL>
+            <Dataflow Name="Moving Data Primary Key from Source to Intermediate table of Staging">
+                <Transformations>
+                    <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
+                        <VariableInput VariableName="User.SQL_selectsourcePK"/>
+                    </OleDbSource>
+                    <OleDbDestination Name="Feed Staging" ConnectionName="StagingDatabaseConnection" KeepIdentity="true">
+                        <TableFromVariableOutput VariableName="User.TableNameTempDelete"/>
+                    </OleDbDestination>
+                </Transformations>
+            </Dataflow>
+            <ExecuteSQL Name="<#=$"MergeDelete Intermediate table with Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+                <VariableInput VariableName="User.SQL_mergeDelete"/>
+            </ExecuteSQL>
+            
+<#
+}
+#>
+
+
 <#
 }
 else

@@ -1,52 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="05/13/2018 17:10:52" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{C0231441-7874-4498-82C6-DEF346BBBD92}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="SalesStg_Currency" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{56F7323F-86FF-49CD-8AFB-45F2F1F98D26}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="05/13/2018 19:41:44" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{0E02DBE4-0AD1-4C0B-BE6E-9B4E49C23F7B}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="SalesStg_Currency" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{F1C406A4-F259-4DD5-B338-1E69419524FC}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{2561E32B-AF40-4574-A258-FCAF7EF0A395}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{DCDCC179-C77A-4248-BB48-AD46907E2B9F}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">[Sales].[Currency]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{52B948AB-36CB-495E-AF43-DD27CE1018EC}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{1841E02D-6949-4681-B66D-FD4292CEA2B8}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
       <DTS:VariableValue DTS:DataType="8">[SalesStg].[Currency_temp]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{D34D8ABD-9085-4D6B-B40B-0AA1EA01B8FE}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{4634596A-AD17-4F69-BF5E-A9C9669B12AA}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
       <DTS:VariableValue DTS:DataType="8">[SalesStg].[Currency]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{C0D5FDF7-A437-41C9-93E9-6424C0D96A32}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{0BE18CE0-D4CD-49DE-9FD6-A5FEC6893433}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
       <DTS:VariableValue DTS:DataType="8">truncate table [SalesStg].[Currency_temp]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{289E9D12-38BC-40DB-B252-40F4C56E8595}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select * from &quot; + @[User::TableNameSource] + &quot;as tbl where tbl.&quot; + @[User::IncrementalColumnName] + &quot;&gt;='&quot; + @[User::StagingMaxIncrementalValue] + &quot;';&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsource">
-      <DTS:VariableValue DTS:DataType="8">select * from [Sales].[Currency]as tbl where tbl.[ModifiedDate]&gt;='19000101';</DTS:VariableValue>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{A8DE8AA4-204F-42DD-B837-7A9F41A93F55}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select * from &quot; + @[User::TableNameSource] + &quot; as tbl;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsource">
+      <DTS:VariableValue DTS:DataType="8">select * from [Sales].[Currency] as tbl;</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{AF69B600-C65F-4F10-A6D5-648F144FF95A}" DTS:EvaluateAsExpression="True" DTS:Expression="GETDATE()" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="StagingLoadDate">
-      <DTS:VariableValue DTS:DataType="7">05/13/2018 17:10:52</DTS:VariableValue>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{263E3A2B-1374-44F7-B27D-0551D599A9D0}" DTS:EvaluateAsExpression="True" DTS:Expression="GETDATE()" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="StagingLoadDate">
+      <DTS:VariableValue DTS:DataType="7">05/13/2018 19:41:44</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3CAC9D22-FA19-47DF-AED6-478DDCBDFE97}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;merge [SalesStg].[Currency] as [target]&#xA;using [SalesStg].[Currency_temp] as [source] &#xA;    on [target].[CurrencyCode] = [source].[CurrencyCode] and [target].[Name] = [source].[Name]&#xA;when matched&#xA;    and exists(select [source].[ModifiedDate]&#xA;            except select [target].[ModifiedDate])&#xA;    then update set [target].[ModifiedDate] = [source].[ModifiedDate], [target].[Staging Load Date] = [source].[Staging Load Date]&#xA;when not matched by target&#xA;    then insert ([CurrencyCode], [Name], [ModifiedDate], [Staging Load Date])&#xA;    values ([source].[CurrencyCode], [source].[Name], [source].[ModifiedDate], [source].[Staging Load Date]);&#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_merge">
-      <DTS:VariableValue DTS:DataType="8">merge [SalesStg].[Currency] as [target]using [SalesStg].[Currency_temp] as [source]     on [target].[CurrencyCode] = [source].[CurrencyCode] and [target].[Name] = [source].[Name]when matched    and exists(select [source].[ModifiedDate]            except select [target].[ModifiedDate])    then update set [target].[ModifiedDate] = [source].[ModifiedDate], [target].[Staging Load Date] = [source].[Staging Load Date]when not matched by target    then insert ([CurrencyCode], [Name], [ModifiedDate], [Staging Load Date])    values ([source].[CurrencyCode], [source].[Name], [source].[ModifiedDate], [source].[Staging Load Date]);</DTS:VariableValue>
-    </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{10797E83-AD7C-4C4D-969A-AC045CBDFFBE}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="StagingMaxIncrementalValue">
-      <DTS:VariableValue DTS:DataType="8">19000101</DTS:VariableValue>
-    </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{4481EF5B-9DE8-4DA7-92CE-3E80988820C7}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select convert(nvarchar(30), max(tbl.&quot; + @[User::IncrementalColumnName]  + &quot;), 126) as md from &quot; + @[User::TableNameTarget] + &quot; as tbl&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_getStagingMaxIncrementalValue">
-      <DTS:VariableValue DTS:DataType="8">select convert(nvarchar(30), max(tbl.[ModifiedDate]), 126) as md from [SalesStg].[Currency] as tbl</DTS:VariableValue>
-    </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{DB0E62BD-ADA0-470D-B553-44F309CC84AD}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="IncrementalColumnName">
-      <DTS:VariableValue DTS:DataType="8">[ModifiedDate]</DTS:VariableValue>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{243D71C7-C256-41E5-ABBA-5B62336A53BC}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;begin tran;&#xA;&#xA;truncate table &quot;+ @[User::TableNameTarget] + &quot;;&#xA;&#xA;&#xA;alter table &quot;+ @[User::TableNameTemp] + &quot;&#xA;            switch to &quot; + @[User::TableNameTarget] + &quot;&#xA;&#xA;commit;&#xA;    &#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_switch">
+      <DTS:VariableValue DTS:DataType="8">begin tran;truncate table [SalesStg].[Currency];alter table [SalesStg].[Currency_temp]            switch to [SalesStg].[Currency]commit;    </DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{715D6205-0820-4D97-AAD9-34F37A2D6672}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Get Max Date From Target SalesStg_Currency" DTS:refId="Package\Get Max Date From Target SalesStg_Currency" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="User::SQL_getStagingMaxIncrementalValue" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
-          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::StagingMaxIncrementalValue" SQLTask:ResultName="md"></SQLTask:ResultBinding>
-        </SQLTask:SqlTaskData>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{73A2F0D4-333D-47B6-BB28-9217A8F86553}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table SalesStg_Currency" DTS:refId="Package\Truncate Intermediate table SalesStg_Currency" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{730EE98C-90B2-494A-A41F-400628BF1864}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table SalesStg_Currency" DTS:refId="Package\Truncate Intermediate table SalesStg_Currency" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{75FF257D-F85B-4200-9566-207B60F69C36}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Intermediate table of Staging" DTS:refId="Package\Moving Data from Source to Intermediate table of Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{529801FC-41FA-491D-BEE4-4570F887BC54}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Moving Data from Source to Intermediate table of Staging" DTS:refId="Package\Moving Data from Source to Intermediate table of Staging" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
           <components>
@@ -168,15 +152,14 @@
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{C1040951-6B8D-4327-9FC7-B8882AD374A1}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Merge Intermediate table with Staging SalesStg_Currency" DTS:refId="Package\Merge Intermediate table with Staging SalesStg_Currency" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{2FD15CE0-049C-4465-A608-276D6BC9B682}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Switch Partition of Intermediate table to Staging SalesStg_Currency" DTS:refId="Package\Switch Partition of Intermediate table to Staging SalesStg_Currency" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
-        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_merge" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_switch" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{76616C3C-B31A-4BDD-8C36-15E13669316A}" DTS:From="Package\Get Max Date From Target SalesStg_Currency" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Get Max Date From Target SalesStg_Currency_To_Truncate Intermediate table SalesStg_Currency" DTS:refId="Package.PrecedenceConstraints[Constraint_Get Max Date From Target SalesStg_Currency_To_Truncate Intermediate table SalesStg_Currency]" DTS:To="Package\Truncate Intermediate table SalesStg_Currency"></DTS:PrecedenceConstraint>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{E14EC2A2-BE27-4C0F-B933-28A7803F767F}" DTS:From="Package\Truncate Intermediate table SalesStg_Currency" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table SalesStg_Currency_To_Moving Data from Source to Intermediate table of Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table SalesStg_Currency_To_Moving Data from Source to Intermediate table of Staging]" DTS:To="Package\Moving Data from Source to Intermediate table of Staging"></DTS:PrecedenceConstraint>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{83902605-BF63-497A-8FDC-F470D30387DD}" DTS:From="Package\Moving Data from Source to Intermediate table of Staging" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Moving Data from Source to Intermediate table of Staging_To_Merge Intermediate table with Staging SalesStg_Currency" DTS:refId="Package.PrecedenceConstraints[Constraint_Moving Data from Source to Intermediate table of Staging_To_Merge Intermediate table with Staging SalesStg_Currency]" DTS:To="Package\Merge Intermediate table with Staging SalesStg_Currency"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{DFAC040B-9B2C-42FB-A410-C901F358A198}" DTS:From="Package\Truncate Intermediate table SalesStg_Currency" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table SalesStg_Currency_To_Moving Data from Source to Intermediate table of Staging" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table SalesStg_Currency_To_Moving Data from Source to Intermediate table of Staging]" DTS:To="Package\Moving Data from Source to Intermediate table of Staging"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{EA97D8DF-0E34-48B8-80A4-DBDC0AD44B1B}" DTS:From="Package\Moving Data from Source to Intermediate table of Staging" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Moving Data from Source to Intermediate table of Staging_To_Switch Partition of Intermediate table to Staging SalesStg_Currency" DTS:refId="Package.PrecedenceConstraints[Constraint_Moving Data from Source to Intermediate table of Staging_To_Switch Partition of Intermediate table to Staging SalesStg_Currency]" DTS:To="Package\Switch Partition of Intermediate table to Staging SalesStg_Currency"></DTS:PrecedenceConstraint>
   </DTS:PrecedenceConstraints>
 </DTS:Executable>

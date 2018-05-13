@@ -223,16 +223,16 @@
       <FullPath>0_Parameters.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>1_RunToGenerate.biml</Name>
-      <FullPath>1_RunToGenerate.biml</FullPath>
+      <Name>1_Generate SSIS Packages.biml</Name>
+      <FullPath>1_Generate SSIS Packages.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>2_1_CodeMetadataLoading.biml</Name>
-      <FullPath>2_1_CodeMetadataLoading.biml</FullPath>
+      <Name>2_1_Variables Builder.biml</Name>
+      <FullPath>2_1_Variables Builder.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>2_2_ExecuteSQLBuilders.biml</Name>
-      <FullPath>2_2_ExecuteSQLBuilders.biml</FullPath>
+      <Name>2_2_SQL Metadata Methods.biml</Name>
+      <FullPath>2_2_SQL Metadata Methods.biml</FullPath>
     </ProjectItem>
   </Miscellaneous>
   <Configurations>

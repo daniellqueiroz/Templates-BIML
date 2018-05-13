@@ -11,6 +11,11 @@ static string GetSQLTruncate()
     return @"""truncate table "" + @[User::TableNameTemp]";
 }
 
+static string GetSQLTruncateDelete()
+{
+    return @"""truncate table "" + @[User::TableNameTempDelete]";
+}
+
 static string GetSQLGetStagingMaxIncrementalValue(string connectionString, string tableName, string columnName)
 {
     var tableSchema = GetTableSchema(connectionString, tableName);
@@ -99,4 +104,45 @@ commit;
 """;
 }
 
+static string GenerateMergeStatementForDelete(string tableSource, string tableTarget, string connectionString)
+{
+
+    var tableSchema = GetTableSchema(connectionString, tableTarget);
+
+    var columnPrimaryKey = (from DataRow col in tableSchema.Rows
+                            where Convert.ToBoolean(col["IsKey"]) == true
+                            select col["ColumnName"]).ToList();
+
+    var onPart = string.Join(" and ", columnPrimaryKey.Select(n => $"[target].[{n}] = [source].[{n}]"));
+
+    var merge = 
+$@"
+""merge {tableTarget} as [target] 
+using {tableSource} as [source] 
+    on {onPart}
+when not matched by source 
+    then delete;
+""";
+    return merge;
+}
+
+
+static string GenerateSelectPKStatementForDelete(string tableName, string connectionString)
+{
+
+    var tableSchema = GetTableSchema(connectionString, tableName);
+
+    var columnPrimaryKey = (from DataRow col in tableSchema.Rows
+                            where Convert.ToBoolean(col["IsKey"]) == true
+                            select col["ColumnName"]).ToList();
+
+    var primaryKeysPart = string.Join(", ", columnPrimaryKey.Select(n => $"[source].[{n}]"));
+
+    var merge = 
+$@"
+""select {primaryKeysPart} 
+from "" + @[User::TableNameSource] + "" as [source] ""
+";
+    return merge;
+}
 #>
