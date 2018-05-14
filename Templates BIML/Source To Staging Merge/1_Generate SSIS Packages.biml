@@ -23,10 +23,8 @@
             <Package PackageName="<#=packageName#>"/>
 <#}#>
         </Packages>
-
     </PackageProject>
 </Projects>
-
 <Packages>    
 <#
     foreach (string[] initialTable in initialTableList)
@@ -40,7 +38,7 @@
         bool isMerge = initialTable[4] == "MergeUpsert" || initialTable[4] == "MergeDelete" ? true : false;
         bool isDelete = initialTable[4] == "MergeDelete" ? true : false;
 #>
-    <Package Name="<#=packageName#>" ConstraintMode="Linear" ProtectionLevel="DontSaveSensitive">
+    <Package Name="<#=packageName#>" ConstraintMode="Parallel" ProtectionLevel="DontSaveSensitive" >
         <Connections>
             <Connection ConnectionName="SourceDatabaseConnection">
                 <Expressions>
@@ -55,101 +53,109 @@
                 </Expressions>
             </Connection>
         </Connections>
+        <Parameters>
+            <Parameter Name="StagingLoadDateParameter" DataType="DateTime" IsRequired="true">1900-01-01</Parameter>
+        </Parameters>
         <Variables>
             <Variable Name="TableNameSource" DataType="String" EvaluateAsExpression="false"><#=sourceTableName#></Variable>
             <Variable Name="TableNameTemp" DataType="String" EvaluateAsExpression="false"><#=intermediateTableName#></Variable>
             <Variable Name="TableNameTarget" DataType="String" EvaluateAsExpression="false"><#=destinationTableName#></Variable>
             <Variable Name="SQL_truncate" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncate()#></Variable>
             <Variable Name="SQL_selectsource" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetSourceData(incrementalColumnName)#></Variable>
-            <Variable Name="StagingLoadDate" DataType="DateTime" EvaluateAsExpression="true">GETDATE()</Variable>
-<#
-if(isMerge == true)
-{
-#>
+            <Variable Name="SQL_switch" DataType="String" EvaluateAsExpression="true"><#=GetSQLSwitch()#></Variable>            
+<#if(isMerge == true)
+{#>
             <Variable Name="SQL_merge" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatement(intermediateTableName, destinationTableName, destinationConnectionString, stagingLoadDateColumn)#></Variable>
-<#
-if(isDelete == true)
-{
-#>
-    <Variable Name="TableNameTempDelete" DataType="String" EvaluateAsExpression="false"><#=intermediateDeleteTableName#></Variable>
-    <Variable Name="SQL_selectsourcePK" DataType="String" EvaluateAsExpression="true"><#=GenerateSelectPKStatementForDelete(sourceTableName, sourceConnectionString)#></Variable>
-    <Variable Name="SQL_mergeDelete" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatementForDelete(intermediateDeleteTableName, destinationTableName, destinationConnectionString)#></Variable>
-    <Variable Name="SQL_truncateDelete" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncateDelete()#></Variable>
-<#
+    <#
+    if(isDelete == true)
+    {
+    #>
+        <Variable Name="TableNameTempDelete" DataType="String" EvaluateAsExpression="false"><#=intermediateDeleteTableName#></Variable>
+        <Variable Name="SQL_selectsourcePK" DataType="String" EvaluateAsExpression="true"><#=GenerateSelectPKStatementForDelete(sourceTableName, sourceConnectionString)#></Variable>
+        <Variable Name="SQL_mergeDelete" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatementForDelete(intermediateDeleteTableName, destinationTableName, destinationConnectionString)#></Variable>
+        <Variable Name="SQL_truncateDelete" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncateDelete()#></Variable>
+    <#}
 }
-#>
-<#
-}
-else
-{
-#>
-            <Variable Name="SQL_switch" DataType="String" EvaluateAsExpression="true"><#=GetSQLSwitch()#></Variable>
-<#
-}
-#>          
-            
 
-<#
 if(incrementalColumnName != "[]")
-{
-#>
-            <Variable Name="StagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="false">19000101</Variable>
+{#>
+            <Variable Name="StagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="false">FirstLoad</Variable>
             <Variable Name="SQL_getStagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetStagingMaxIncrementalValue(sourceConnectionString, sourceTableName, incrementalColumnName)#></Variable>                
             <Variable Name="IncrementalColumnName" DataType="String" EvaluateAsExpression="false"><#=incrementalColumnName#></Variable>            
-<#
-}
-#>
-    
-
+<#}#>
         </Variables>
         <Tasks>
-<#
-if(incrementalColumnName != "[]")
-{
-#>
-            <ExecuteSQL Name="<#=$"Get Max Date From Target {packageName}"#>" ConnectionName="StagingDatabaseConnection" ResultSet="SingleRow">
+<#if(incrementalColumnName != "[]")
+{#>
+            <ExecuteSQL Name="Get Max Date From Target" ConnectionName="StagingDatabaseConnection" ResultSet="SingleRow">
                 <VariableInput VariableName="User.SQL_getStagingMaxIncrementalValue"/>
                 <Results>
                     <Result Name="md" VariableName="User.StagingMaxIncrementalValue"/>
                 </Results>
             </ExecuteSQL>
-<#
-}
-#>
-            
-            <ExecuteSQL Name="<#=$"Truncate Intermediate table {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+<#}#>
+            <ExecuteSQL Name="Truncate Intermediate table" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_truncate"/>
+<#if(incrementalColumnName != "[]")
+{#>                
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input OutputPathName="Get Max Date From Target.Output"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
+<#}#>
             </ExecuteSQL>
-            <Dataflow Name="Moving Data from Source to Intermediate table of Staging">
+            <Dataflow Name="Loading Data to Intermediate table">
                 <Transformations>
                     <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
                         <VariableInput VariableName="User.SQL_selectsource"/>
                     </OleDbSource>
                     <DerivedColumns Name="Add new columns">
                         <Columns>
-                            <Column Name="<#=stagingLoadDateColumn#>" DataType="DateTime">@[User::StagingLoadDate]</Column>
+                            <Column Name="<#=stagingLoadDateColumn#>" DataType="DateTime">@[$Package::StagingLoadDateParameter]</Column>
                         </Columns>
                     </DerivedColumns>
                     <OleDbDestination Name="Feed Staging" ConnectionName="StagingDatabaseConnection" KeepIdentity="true">
                         <TableFromVariableOutput VariableName="User.TableNameTemp"/>
                     </OleDbDestination>
                 </Transformations>
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input OutputPathName="Truncate Intermediate table.Output"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
             </Dataflow>
 <#
 if(isMerge == true)
 {
 #>
-            <ExecuteSQL Name="<#=$"MergeUpsert Intermediate table with Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+            <ExecuteSQL Name="MergeUpsert Intermediate table with Target" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_merge"/>
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input EvaluationOperation="ExpressionAndConstraint" OutputPathName="Loading Data to Intermediate table.Output" EvaluationValue="Success" Expression="@[User::StagingMaxIncrementalValue]!= &quot;FirstLoad&quot;"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
             </ExecuteSQL>
-<#
-if(isDelete == true)
-{
-#>
-            <ExecuteSQL Name="<#=$"Truncate before Delete Intermediate table {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+            <ExecuteSQL Name="Switch Intermediate table to Target" ConnectionName="StagingDatabaseConnection">
+                <VariableInput VariableName="User.SQL_switch"/>
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input EvaluationOperation="ExpressionAndConstraint" OutputPathName="Loading Data to Intermediate table.Output" EvaluationValue="Success" Expression="@[User::StagingMaxIncrementalValue]== &quot;FirstLoad&quot;"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
+            </ExecuteSQL>
+<#if(isDelete == true)
+    {#>
+            <ExecuteSQL Name="Truncate Intermediate table before Delete" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_truncateDelete"/>
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input OutputPathName="MergeUpsert Intermediate table with Target.Output"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
             </ExecuteSQL>
-            <Dataflow Name="Moving Data Primary Key from Source to Intermediate table of Staging">
+            <Dataflow Name="Loading PrimaryKey to Intermediate table">
                 <Transformations>
                     <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
                         <VariableInput VariableName="User.SQL_selectsourcePK"/>
@@ -158,42 +164,54 @@ if(isDelete == true)
                         <TableFromVariableOutput VariableName="User.TableNameTempDelete"/>
                     </OleDbDestination>
                 </Transformations>
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input OutputPathName="Truncate Intermediate table before Delete.Output"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
             </Dataflow>
-            <ExecuteSQL Name="<#=$"MergeDelete Intermediate table with Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+            <ExecuteSQL Name="MergeDelete Intermediate table with Target" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_mergeDelete"/>
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input OutputPathName="Loading PrimaryKey to Intermediate table.Output"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
             </ExecuteSQL>
             
-<#
-}
-#>
-
-
-<#
+<#}
 }
 else
-{
-#>
-            <ExecuteSQL Name="<#=$"Switch Partition of Intermediate table to Staging {packageName}"#>" ConnectionName="StagingDatabaseConnection">
+{#>
+            <ExecuteSQL Name="Switch Intermediate table to Target" ConnectionName="StagingDatabaseConnection">
                 <VariableInput VariableName="User.SQL_switch"/>
+                <PrecedenceConstraints>
+                    <Inputs>
+                        <Input OutputPathName="Loading Data to Intermediate table.Output"></Input>
+                    </Inputs>
+                </PrecedenceConstraints>
             </ExecuteSQL>
-<#
-}
-#>
+<#}#>
         </Tasks>
     </Package>
 <#}#>
-    
     <Package Name="_Master" ProtectionLevel="DontSaveSensitive">
+        <Variables>
+            <Variable Name="StagingLoadDate" DataType="DateTime" EvaluateAsExpression="true">GETDATE()</Variable>
+        </Variables>
         <Tasks>
-            <#
-    foreach (string[] initialTable in initialTableList)
-    {
-        var packageName = $"{initialTable[3]}_{initialTable[1]}";
-            #>
-                    <ExecutePackage Name="<#=packageName.Replace("."," ")#>">
-                       <ExternalProjectPackage Package="<#=$"{packageName}.dtsx"#>"/>
-                    </ExecutePackage>
-            <#}#>
+                <#
+                foreach (string[] initialTable in initialTableList)
+                {
+                    var packageName = $"{initialTable[3]}_{initialTable[1]}";
+                        #>
+                                <ExecutePackage Name="<#=packageName.Replace("."," ")#>">
+                                   <ExternalProjectPackage Package="<#=$"{packageName}.dtsx"#>"/>
+                                   <ParameterBindings>
+                                       <ParameterBinding Name="StagingLoadDateParameter" VariableName="User.StagingLoadDate"/>
+                                   </ParameterBindings>
+                                </ExecutePackage>
+                <#}#>
          </Tasks>
     </Package>
 </Packages>

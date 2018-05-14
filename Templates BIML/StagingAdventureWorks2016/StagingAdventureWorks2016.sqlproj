@@ -72,5 +72,6 @@
     <Build Include="Security\SalesStg.sql" />
     <Build Include="Sales\Tables\Currency_temp.sql" />
     <Build Include="Sales\Tables\Customer_temp.sql" />
+    <Build Include="Sales\Tables\Customer_temp_delete.sql" />
   </ItemGroup>
 </Project>

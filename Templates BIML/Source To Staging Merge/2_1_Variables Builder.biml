@@ -25,8 +25,8 @@ static string GetSQLGetStagingMaxIncrementalValue(string connectionString, strin
                     select col["DataType"].ToString()).ToList().FirstOrDefault();
 
     if (columnDataType == "System.DateTime")
-        return @"""select convert(nvarchar(30), max(tbl."" + @[User::IncrementalColumnName]  + ""), 126) as md from "" + @[User::TableNameTarget] + "" as tbl""";
-    else return @"""select convert(nvarchar(30), max(tbl."" + @[User::IncrementalColumnName]  + "")) as md from "" + @[User::TableNameTarget] + "" as tbl"""; ;
+        return @"""select isnull(convert(nvarchar(30), max(tbl."" + @[User::IncrementalColumnName]  + ""), 126), N'FirstLoad') as md from "" + @[User::TableNameTarget] + "" as tbl""";
+    else return @"""select isnull(convert(nvarchar(30), max(tbl."" + @[User::IncrementalColumnName]  + "")), N'FirstLoad') as md from "" + @[User::TableNameTarget] + "" as tbl"""; ;
 
 }
 
@@ -34,7 +34,7 @@ static string GetSQLGetSourceData(string columnName)
 {
 //"","", ""
     if(columnName != "[]") 
-            return  @"""select * from "" + @[User::TableNameSource] + ""as tbl where tbl."" + @[User::IncrementalColumnName] + "">='"" + @[User::StagingMaxIncrementalValue] + ""';""";
+            return  @"""select * from "" + @[User::TableNameSource] + ""as tbl  "" + (@[User::StagingMaxIncrementalValue] == ""FirstLoad"" ? """" : "" where tbl."" + @[User::IncrementalColumnName] + "">='"" + @[User::StagingMaxIncrementalValue] + ""';"")";
     else    return  @"""select * from "" + @[User::TableNameSource] + "" as tbl;""";
 
     

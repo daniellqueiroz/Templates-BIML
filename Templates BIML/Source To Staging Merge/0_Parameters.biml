@@ -9,7 +9,7 @@
     string[][] initialTableList = new string[][]
     {
         new string[] {"Sales", "Currency", "",             "SalesStg", "Switch"     },
-        new string[] {"Sales", "Customer", "ModifiedDate", "SalesStg", "MergeDelete"}
+        new string[] {"Sales", "Customer", "ModifiedDate", "SalesStg", "MergeUpsert"}
 
     };
     
