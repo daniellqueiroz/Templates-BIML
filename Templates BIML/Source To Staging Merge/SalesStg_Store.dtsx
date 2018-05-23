@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="05/23/2018 21:35:55" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{7E63251F-F2C1-4827-81A8-B65BB4FFDE68}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="SalesStg_Store" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{E1F9FCEE-8B17-4618-B2B8-189FC6CDDBF1}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter DTS:CreationName="" DTS:DataType="7" DTS:Description="" DTS:DTSID="{45282815-15E2-4D20-9F55-B811C6EEB048}" DTS:ObjectName="StagingLoadDateParameter" DTS:Required="1" DTS:Sensitive="0">
+      <DTS:Property DTS:DataType="7" DTS:Name="ParameterValue">1900-01-01</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{5CD0E446-ECAC-4109-B48B-1F710F194B71}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
+      <DTS:VariableValue DTS:DataType="8">[Sales].[Store]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{26F7E5FC-48C7-4559-9848-12707172DC0B}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
+      <DTS:VariableValue DTS:DataType="8">[SalesStg].[Store_temp]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{F6090455-9D4A-429F-8126-6C99B0B07AB9}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+      <DTS:VariableValue DTS:DataType="8">[SalesStg].[Store]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{6AB5C5CD-0B34-4716-ABEF-84BFC14D1938}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+      <DTS:VariableValue DTS:DataType="8">truncate table [SalesStg].[Store_temp]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{7F41176A-6AC4-4E9B-88DC-0FA13260A035}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select * from &quot; + @[User::TableNameSource] + &quot;as tbl  &quot; + (@[User::StagingMaxIncrementalValue] == &quot;FirstLoad&quot; ? &quot;&quot; : &quot; where tbl.&quot; + @[User::IncrementalColumnName] + &quot;&gt;='&quot; + @[User::StagingMaxIncrementalValue] + &quot;';&quot;)" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsource">
+      <DTS:VariableValue DTS:DataType="8">select * from [Sales].[Store]as tbl  </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{FD628D24-6479-4C27-94C2-44E2F7472B72}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;begin tran;&#xA;&#xA;truncate table &quot;+ @[User::TableNameTarget] + &quot;;&#xA;&#xA;&#xA;alter table &quot;+ @[User::TableNameTemp] + &quot;&#xA;            switch to &quot; + @[User::TableNameTarget] + &quot;&#xA;&#xA;commit;&#xA;    &#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_switch">
+      <DTS:VariableValue DTS:DataType="8">begin tran;truncate table [SalesStg].[Store];alter table [SalesStg].[Store_temp]            switch to [SalesStg].[Store]commit;    </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{5E2D065A-1C8B-4C49-AB99-853457859D5F}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;merge [SalesStg].[Store] as [target]&#xA;using [SalesStg].[Store_temp] as [source] &#xA;    on [target].[BusinessEntityID] = [source].[BusinessEntityID]&#xA;when matched&#xA;    and exists(select [source].[Name], [source].[SalesPersonID], [source].[Demographics], [source].[rowguid], [source].[ModifiedDate]&#xA;            except select [target].[Name], [target].[SalesPersonID], [target].[Demographics], [target].[rowguid], [target].[ModifiedDate])&#xA;    then update set [target].[Name] = [source].[Name], [target].[SalesPersonID] = [source].[SalesPersonID], [target].[Demographics] = [source].[Demographics], [target].[rowguid] = [source].[rowguid], [target].[ModifiedDate] = [source].[ModifiedDate]&#xA;when not matched by target&#xA;    then insert ([BusinessEntityID], [Name], [SalesPersonID], [Demographics], [rowguid], [ModifiedDate])&#xA;    values ([source].[BusinessEntityID], [source].[Name], [source].[SalesPersonID], [source].[Demographics], [source].[rowguid], [source].[ModifiedDate]);&#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_merge">
+      <DTS:VariableValue DTS:DataType="8">merge [SalesStg].[Store] as [target]using [SalesStg].[Store_temp] as [source]     on [target].[BusinessEntityID] = [source].[BusinessEntityID]when matched    and exists(select [source].[Name], [source].[SalesPersonID], [source].[Demographics], [source].[rowguid], [source].[ModifiedDate]            except select [target].[Name], [target].[SalesPersonID], [target].[Demographics], [target].[rowguid], [target].[ModifiedDate])    then update set [target].[Name] = [source].[Name], [target].[SalesPersonID] = [source].[SalesPersonID], [target].[Demographics] = [source].[Demographics], [target].[rowguid] = [source].[rowguid], [target].[ModifiedDate] = [source].[ModifiedDate]when not matched by target    then insert ([BusinessEntityID], [Name], [SalesPersonID], [Demographics], [rowguid], [ModifiedDate])    values ([source].[BusinessEntityID], [source].[Name], [source].[SalesPersonID], [source].[Demographics], [source].[rowguid], [source].[ModifiedDate]);</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3C18C57E-2CAE-479A-8513-2EE9ED9BFF40}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="StagingMaxIncrementalValue">
+      <DTS:VariableValue DTS:DataType="8">FirstLoad</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{6324007C-24B6-4FE9-B093-F3AFF0795C92}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select isnull(convert(nvarchar(30), max(tbl.&quot; + @[User::IncrementalColumnName]  + &quot;), 126), N'FirstLoad') as md from &quot; + @[User::TableNameTarget] + &quot; as tbl&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_getStagingMaxIncrementalValue">
+      <DTS:VariableValue DTS:DataType="8">select isnull(convert(nvarchar(30), max(tbl.[ModifiedDate]), 126), N'FirstLoad') as md from [SalesStg].[Store] as tbl</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{073814B8-8081-4D83-BC7D-113A07394E22}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="IncrementalColumnName">
+      <DTS:VariableValue DTS:DataType="8">[ModifiedDate]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{2C80A59F-A447-4934-B462-36A12319BA55}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Get Max Date From Target" DTS:refId="Package\Get Max Date From Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="User::SQL_getStagingMaxIncrementalValue" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding SQLTask:DtsVariableName="User::StagingMaxIncrementalValue" SQLTask:ResultName="md"></SQLTask:ResultBinding>
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{7B956BFC-C65F-4C65-80D2-3DF608B68702}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table" DTS:refId="Package\Truncate Intermediate table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{D486C5DD-E339-4BDC-AA43-70192BC638E9}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Loading Data to Intermediate table" DTS:refId="Package\Loading Data to Intermediate table" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Loading Data to Intermediate table\Query Source" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{6F553658-8812-44C1-9A2C-9DCA9AB668F6}:external" connectionManagerRefId="Project.ConnectionManagers[SourceDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading Data to Intermediate table\Query Source.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="BusinessEntityID" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[BusinessEntityID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="50" name="Name" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[Name]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="SalesPersonID" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[SalesPersonID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="nText" name="Demographics" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[Demographics]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[BusinessEntityID]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[BusinessEntityID]" name="BusinessEntityID" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[BusinessEntityID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[Name]" length="50" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[Name]" name="Name" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[Name]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[SalesPersonID]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[SalesPersonID]" name="SalesPersonID" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[SalesPersonID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="nText" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[Demographics]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[Demographics]" name="Demographics" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[Demographics]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="guid" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[rowguid]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[rowguid]" name="rowguid" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[rowguid]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].ExternalColumns[ModifiedDate]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[ModifiedDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[BusinessEntityID]" name="BusinessEntityID" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[BusinessEntityID]"></outputColumn>
+                    <outputColumn dataType="wstr" length="50" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[Name]" name="Name" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[Name]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[SalesPersonID]" name="SalesPersonID" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[SalesPersonID]"></outputColumn>
+                    <outputColumn dataType="nText" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[Demographics]" name="Demographics" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[Demographics]"></outputColumn>
+                    <outputColumn dataType="guid" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[rowguid]" name="rowguid" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[rowguid]"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable">User::SQL_selectsource</property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">3</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.DerivedColumn" contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0" name="Add new columns" refId="Package\Loading Data to Intermediate table\Add new columns" usesDispositions="true">
+              <inputs>
+                <input name="Query Source_Output_Add new columns" refId="Package\Loading Data to Intermediate table\Add new columns.Inputs[Query Source_Output_Add new columns]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" name="Output" refId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Output]" synchronousInputId="Package\Loading Data to Intermediate table\Add new columns.Inputs[Query Source_Output_Add new columns]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Computation" errorRowDisposition="FailComponent" lineageId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Output].Columns[Staging Load Date]" name="Staging Load Date" refId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Output].Columns[Staging Load Date]" truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property dataType="System.String" description="Derived Column Expression" name="Expression">@[$Package::StagingLoadDateParameter]</property>
+                        <property dataType="System.String" description="Derived Column Friendly Expression" expressionType="Notify" name="FriendlyExpression">@[$Package::StagingLoadDateParameter]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                </output>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Error]" synchronousInputId="Package\Loading Data to Intermediate table\Add new columns.Inputs[Query Source_Output_Add new columns]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Loading Data to Intermediate table\Feed Staging" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{07EE134D-1E5F-41BC-A9E0-0233B5007D5A}:external" connectionManagerRefId="Project.ConnectionManagers[StagingDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading Data to Intermediate table\Feed Staging.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Add new columns_Output_Feed Staging" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="BusinessEntityID" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[BusinessEntityID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="50" name="Name" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[Name]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="SalesPersonID" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[SalesPersonID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="nText" name="Demographics" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[Demographics]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="BusinessEntityID" externalMetadataColumnId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[BusinessEntityID]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[BusinessEntityID]" name="" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[BusinessEntityID]"></inputColumn>
+                    <inputColumn cachedDataType="wstr" cachedLength="50" cachedName="Name" externalMetadataColumnId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[Name]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[Name]" name="" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[Name]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="SalesPersonID" externalMetadataColumnId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[SalesPersonID]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[SalesPersonID]" name="" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[SalesPersonID]"></inputColumn>
+                    <inputColumn cachedDataType="nText" cachedName="Demographics" externalMetadataColumnId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[Demographics]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[Demographics]" name="" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[Demographics]"></inputColumn>
+                    <inputColumn cachedDataType="guid" cachedName="rowguid" externalMetadataColumnId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[rowguid]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[rowguid]" name="" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[rowguid]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].ExternalColumns[ModifiedDate]" lineageId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output].Columns[ModifiedDate]" name="" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Loading Data to Intermediate table\Feed Staging.Outputs[Error]" synchronousInputId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Loading Data to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading Data to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Loading Data to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameTemp</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">4</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">true</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Loading Data to Intermediate table\Add new columns.Inputs[Query Source_Output_Add new columns]" name="Query Source_Output_Add new columns" refId="Package\Loading Data to Intermediate table.Paths[Query Source_Output_Add new columns]" startId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output]"></path>
+            <path endId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging]" name="Add new columns_Output_Feed Staging" refId="Package\Loading Data to Intermediate table.Paths[Add new columns_Output_Feed Staging]" startId="Package\Loading Data to Intermediate table\Add new columns.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{55BD7EA0-32A5-4195-87D4-C3EA34FB4781}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="MergeUpsert Intermediate table with Target" DTS:refId="Package\MergeUpsert Intermediate table with Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_merge" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{B51D1180-4666-4BDE-B15F-0EDA2E09D910}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Switch Intermediate table to Target" DTS:refId="Package\Switch Intermediate table to Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_switch" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{E4BFFE71-4F20-43AB-BCED-4A9E810D322A}" DTS:From="Package\Get Max Date From Target" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Get Max Date From Target_To_Truncate Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Get Max Date From Target_To_Truncate Intermediate table]" DTS:To="Package\Truncate Intermediate table"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{8E244DD2-02CC-4CF3-A5AC-C5FA2BDE6AAE}" DTS:From="Package\Truncate Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table]" DTS:To="Package\Loading Data to Intermediate table"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{E557DE82-503B-40BB-806A-E88AABF54537}" DTS:EvalOp="3" DTS:Expression="@[User::StagingMaxIncrementalValue]!= &quot;FirstLoad&quot;" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_MergeUpsert Intermediate table with Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_MergeUpsert Intermediate table with Target]" DTS:To="Package\MergeUpsert Intermediate table with Target"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{29B71CF4-3878-41A1-8FAE-6EFC7534637D}" DTS:EvalOp="3" DTS:Expression="@[User::StagingMaxIncrementalValue]== &quot;FirstLoad&quot;" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target]" DTS:To="Package\Switch Intermediate table to Target"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

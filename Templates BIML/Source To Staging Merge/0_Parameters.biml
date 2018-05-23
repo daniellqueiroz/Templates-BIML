@@ -1,7 +1,7 @@
 <#@ template language="C#" hostspecific="true"#>
 <#
-    string sourceConnectionString = @"Data Source=localhost;Initial Catalog=AdventureWorks2016;User ID=testuser;Password=12345;";
-    string destinationConnectionString = @"Data Source=localhost;Initial Catalog=StagingAdventureWorks2016;Integrated Security=SSPI;";
+    string sourceConnectionString = @"Provider=SQLNCLI11;Data Source=localhost;Initial Catalog=AdventureWorks2016;User ID=testuser;Password=12345;";
+    string destinationConnectionString = @"Provider=SQLNCLI11;Data Source=localhost;Initial Catalog=StagingAdventureWorks2016;Integrated Security=SSPI;";
     string stagingLoadDateColumn = "Staging Load Date";
 
     // ([Source Schema Name], [Table Name], [Incremental Column Name], [Destination Schema Name] , [MergeUpsert/MergeDelete/Switch]
@@ -9,7 +9,8 @@
     string[][] initialTableList = new string[][]
     {
         new string[] {"Sales", "Currency", "",             "SalesStg", "Switch"     },
-        new string[] {"Sales", "Customer", "ModifiedDate", "SalesStg", "MergeUpsert"}
+        new string[] {"Sales", "Customer", "ModifiedDate", "SalesStg", "MergeDelete"},
+        new string[] {"Sales", "Store", "ModifiedDate", "SalesStg", "MergeUpsert"}
 
     };
     

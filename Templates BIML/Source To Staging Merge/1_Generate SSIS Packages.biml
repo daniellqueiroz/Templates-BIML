@@ -3,8 +3,8 @@
 <#@include file="2_1_Variables Builder.biml"#>
 
 <Connections>
-    <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="<#=$"{sourceConnectionString};Provider=SQLNCLI11;"#>"></OleDbConnection>
-    <OleDbConnection CreateInProject="true" Name="StagingDatabaseConnection" ConnectionString="<#=$"{destinationConnectionString};Provider=SQLNCLI11;"#>"></OleDbConnection>
+    <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="<#=$"{sourceConnectionString}"#>"></OleDbConnection>
+    <OleDbConnection CreateInProject="true" Name="StagingDatabaseConnection" ConnectionString="<#=$"{destinationConnectionString}"#>"></OleDbConnection>
 </Connections>
 <Projects>
     <PackageProject Name="Source To Staging" ProtectionLevel="DontSaveSensitive">

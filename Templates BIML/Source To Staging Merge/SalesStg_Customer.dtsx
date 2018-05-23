@@ -1,57 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="05/14/2018 18:10:54" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="UTVPC08W90L" DTS:CreatorName="alebra" DTS:DTSID="{A5D640CE-D0B5-4B71-9981-D550B0F8109A}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="SalesStg_Customer" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{CBC37771-97F8-458B-8397-C5B39BE18F9F}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="05/23/2018 21:35:55" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{4A7565E7-00B1-47D1-9F0D-DD7646ABC1C8}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="SalesStg_Customer" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{1ABB6E82-95FA-4547-B283-5027ABD08264}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:PackageParameters>
-    <DTS:PackageParameter DTS:CreationName="" DTS:DataType="7" DTS:Description="" DTS:DTSID="{D5E36D81-B2BC-4194-8B8C-76CB86E4A7D7}" DTS:ObjectName="StagingLoadDateParameter" DTS:Required="1" DTS:Sensitive="0">
+    <DTS:PackageParameter DTS:CreationName="" DTS:DataType="7" DTS:Description="" DTS:DTSID="{C1DD3815-6A5A-471E-9005-EF2F1B90D607}" DTS:ObjectName="StagingLoadDateParameter" DTS:Required="1" DTS:Sensitive="0">
       <DTS:Property DTS:DataType="7" DTS:Name="ParameterValue">1900-01-01</DTS:Property>
     </DTS:PackageParameter>
   </DTS:PackageParameters>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{0245DA28-0300-4BAF-AB3C-8F998B9C7CFA}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{94BE72AC-8F29-40CE-973C-13ED8C612762}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">[Sales].[Customer]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{C861DDDF-38C0-471D-9360-CAA207926DDD}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{DF1B34E0-A47A-403F-A05B-137FFB54EAD2}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
       <DTS:VariableValue DTS:DataType="8">[SalesStg].[Customer_temp]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{00D5D39A-AEB1-4964-B36E-D821931859AD}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{1F8884BB-ABA5-49DC-BE03-86A9ED90D248}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
       <DTS:VariableValue DTS:DataType="8">[SalesStg].[Customer]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3ABCDBC6-D438-49F3-94FB-385745015D3E}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B7CFF84C-03C7-432F-9408-82835E5DCD50}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
       <DTS:VariableValue DTS:DataType="8">truncate table [SalesStg].[Customer_temp]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{F5136918-D754-417E-B727-0D871254CB64}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select * from &quot; + @[User::TableNameSource] + &quot;as tbl  &quot; + (@[User::StagingMaxIncrementalValue] == &quot;FirstLoad&quot; ? &quot;&quot; : &quot; where tbl.&quot; + @[User::IncrementalColumnName] + &quot;&gt;='&quot; + @[User::StagingMaxIncrementalValue] + &quot;';&quot;)" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsource">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{8101BF04-6268-4494-8E77-688459E36582}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select * from &quot; + @[User::TableNameSource] + &quot;as tbl  &quot; + (@[User::StagingMaxIncrementalValue] == &quot;FirstLoad&quot; ? &quot;&quot; : &quot; where tbl.&quot; + @[User::IncrementalColumnName] + &quot;&gt;='&quot; + @[User::StagingMaxIncrementalValue] + &quot;';&quot;)" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsource">
       <DTS:VariableValue DTS:DataType="8">select * from [Sales].[Customer]as tbl  </DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{3CD2DDF3-125E-4C03-A3DD-23B19B09F776}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;begin tran;&#xA;&#xA;truncate table &quot;+ @[User::TableNameTarget] + &quot;;&#xA;&#xA;&#xA;alter table &quot;+ @[User::TableNameTemp] + &quot;&#xA;            switch to &quot; + @[User::TableNameTarget] + &quot;&#xA;&#xA;commit;&#xA;    &#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_switch">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{9C56602D-9888-45C7-B020-14673CE8D6D7}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;begin tran;&#xA;&#xA;truncate table &quot;+ @[User::TableNameTarget] + &quot;;&#xA;&#xA;&#xA;alter table &quot;+ @[User::TableNameTemp] + &quot;&#xA;            switch to &quot; + @[User::TableNameTarget] + &quot;&#xA;&#xA;commit;&#xA;    &#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_switch">
       <DTS:VariableValue DTS:DataType="8">begin tran;truncate table [SalesStg].[Customer];alter table [SalesStg].[Customer_temp]            switch to [SalesStg].[Customer]commit;    </DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{F737A8D6-47E1-4804-9E49-340108451FE7}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;merge [SalesStg].[Customer] as [target]&#xA;using [SalesStg].[Customer_temp] as [source] &#xA;    on [target].[CustomerID] = [source].[CustomerID]&#xA;when matched&#xA;    and exists(select [source].[PersonID], [source].[StoreID], [source].[TerritoryID], [source].[AccountNumber], [source].[rowguid], [source].[ModifiedDate]&#xA;            except select [target].[PersonID], [target].[StoreID], [target].[TerritoryID], [target].[AccountNumber], [target].[rowguid], [target].[ModifiedDate])&#xA;    then update set [target].[PersonID] = [source].[PersonID], [target].[StoreID] = [source].[StoreID], [target].[TerritoryID] = [source].[TerritoryID], [target].[AccountNumber] = [source].[AccountNumber], [target].[rowguid] = [source].[rowguid], [target].[ModifiedDate] = [source].[ModifiedDate], [target].[Staging Load Date] = [source].[Staging Load Date]&#xA;when not matched by target&#xA;    then insert ([CustomerID], [PersonID], [StoreID], [TerritoryID], [AccountNumber], [rowguid], [ModifiedDate], [Staging Load Date])&#xA;    values ([source].[CustomerID], [source].[PersonID], [source].[StoreID], [source].[TerritoryID], [source].[AccountNumber], [source].[rowguid], [source].[ModifiedDate], [source].[Staging Load Date]);&#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_merge">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{1C5A62CD-1861-4C8F-B75E-CB9EA285E4BF}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;merge [SalesStg].[Customer] as [target]&#xA;using [SalesStg].[Customer_temp] as [source] &#xA;    on [target].[CustomerID] = [source].[CustomerID]&#xA;when matched&#xA;    and exists(select [source].[PersonID], [source].[StoreID], [source].[TerritoryID], [source].[AccountNumber], [source].[rowguid], [source].[ModifiedDate]&#xA;            except select [target].[PersonID], [target].[StoreID], [target].[TerritoryID], [target].[AccountNumber], [target].[rowguid], [target].[ModifiedDate])&#xA;    then update set [target].[PersonID] = [source].[PersonID], [target].[StoreID] = [source].[StoreID], [target].[TerritoryID] = [source].[TerritoryID], [target].[AccountNumber] = [source].[AccountNumber], [target].[rowguid] = [source].[rowguid], [target].[ModifiedDate] = [source].[ModifiedDate], [target].[Staging Load Date] = [source].[Staging Load Date]&#xA;when not matched by target&#xA;    then insert ([CustomerID], [PersonID], [StoreID], [TerritoryID], [AccountNumber], [rowguid], [ModifiedDate], [Staging Load Date])&#xA;    values ([source].[CustomerID], [source].[PersonID], [source].[StoreID], [source].[TerritoryID], [source].[AccountNumber], [source].[rowguid], [source].[ModifiedDate], [source].[Staging Load Date]);&#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_merge">
       <DTS:VariableValue DTS:DataType="8">merge [SalesStg].[Customer] as [target]using [SalesStg].[Customer_temp] as [source]     on [target].[CustomerID] = [source].[CustomerID]when matched    and exists(select [source].[PersonID], [source].[StoreID], [source].[TerritoryID], [source].[AccountNumber], [source].[rowguid], [source].[ModifiedDate]            except select [target].[PersonID], [target].[StoreID], [target].[TerritoryID], [target].[AccountNumber], [target].[rowguid], [target].[ModifiedDate])    then update set [target].[PersonID] = [source].[PersonID], [target].[StoreID] = [source].[StoreID], [target].[TerritoryID] = [source].[TerritoryID], [target].[AccountNumber] = [source].[AccountNumber], [target].[rowguid] = [source].[rowguid], [target].[ModifiedDate] = [source].[ModifiedDate], [target].[Staging Load Date] = [source].[Staging Load Date]when not matched by target    then insert ([CustomerID], [PersonID], [StoreID], [TerritoryID], [AccountNumber], [rowguid], [ModifiedDate], [Staging Load Date])    values ([source].[CustomerID], [source].[PersonID], [source].[StoreID], [source].[TerritoryID], [source].[AccountNumber], [source].[rowguid], [source].[ModifiedDate], [source].[Staging Load Date]);</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{5535ACC4-87CE-4C75-8893-C418544A4CC5}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="StagingMaxIncrementalValue">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{FA89C72E-6942-4349-B469-9B4445DF15FF}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTempDelete">
+      <DTS:VariableValue DTS:DataType="8">[SalesStg].[Customer_temp_delete]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{1F0D6CB9-C433-4595-B0D7-91DB42BD473A}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;select [source].[CustomerID] &#xA;from &quot; + @[User::TableNameSource] + &quot; as [source] &quot;&#xA;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsourcePK">
+      <DTS:VariableValue DTS:DataType="8">select [source].[CustomerID] from [Sales].[Customer] as [source] </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{6EBF8332-7B57-4A79-9E6F-90EB09FEA6EC}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;merge [SalesStg].[Customer] as [target] &#xA;using [SalesStg].[Customer_temp_delete] as [source] &#xA;    on [target].[CustomerID] = [source].[CustomerID]&#xA;when not matched by source &#xA;    then delete;&#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_mergeDelete">
+      <DTS:VariableValue DTS:DataType="8">merge [SalesStg].[Customer] as [target] using [SalesStg].[Customer_temp_delete] as [source]     on [target].[CustomerID] = [source].[CustomerID]when not matched by source     then delete;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{A3F1A832-9AD0-4D7A-8B25-BE9E685EEDB5}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTempDelete]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncateDelete">
+      <DTS:VariableValue DTS:DataType="8">truncate table [SalesStg].[Customer_temp_delete]</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{DEC7683E-C65D-419E-A4B4-A2A3CD0CE59C}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="StagingMaxIncrementalValue">
       <DTS:VariableValue DTS:DataType="8">FirstLoad</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{0580A156-9392-4998-8B1A-32CD25E9E0F4}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select isnull(convert(nvarchar(30), max(tbl.&quot; + @[User::IncrementalColumnName]  + &quot;), 126), N'FirstLoad') as md from &quot; + @[User::TableNameTarget] + &quot; as tbl&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_getStagingMaxIncrementalValue">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{E8466E4F-7BDF-4222-AACE-3E1B68D4691E}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select isnull(convert(nvarchar(30), max(tbl.&quot; + @[User::IncrementalColumnName]  + &quot;), 126), N'FirstLoad') as md from &quot; + @[User::TableNameTarget] + &quot; as tbl&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_getStagingMaxIncrementalValue">
       <DTS:VariableValue DTS:DataType="8">select isnull(convert(nvarchar(30), max(tbl.[ModifiedDate]), 126), N'FirstLoad') as md from [SalesStg].[Customer] as tbl</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{7446B7F3-E706-4838-8BA8-542465E82C31}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="IncrementalColumnName">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B1078F05-DB4D-4AC4-8AAE-8AEF7E217A3E}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="IncrementalColumnName">
       <DTS:VariableValue DTS:DataType="8">[ModifiedDate]</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{5C8F749A-0027-430D-9B6F-7F20D099E7BB}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Get Max Date From Target" DTS:refId="Package\Get Max Date From Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{EE63C5E7-8474-4E4E-8E01-E9B92B76B9C1}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Get Max Date From Target" DTS:refId="Package\Get Max Date From Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:ResultType="ResultSetType_SingleRow" SQLTask:SqlStatementSource="User::SQL_getStagingMaxIncrementalValue" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding SQLTask:DtsVariableName="User::StagingMaxIncrementalValue" SQLTask:ResultName="md"></SQLTask:ResultBinding>
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{EA922654-274C-401E-A421-2E56607B1987}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table" DTS:refId="Package\Truncate Intermediate table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{8E5609D9-D906-4E89-A060-13367C57E35B}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table" DTS:refId="Package\Truncate Intermediate table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{47721EC5-0150-49DC-834E-547DEFB21C00}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Loading Data to Intermediate table" DTS:refId="Package\Loading Data to Intermediate table" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{C05EE114-86D9-413E-9B87-BE52DD5D7902}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Loading Data to Intermediate table" DTS:refId="Package\Loading Data to Intermediate table" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
           <components>
@@ -193,21 +205,116 @@
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{C0CEA128-4604-4B6D-B81B-947E6160383D}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="MergeUpsert Intermediate table with Target" DTS:refId="Package\MergeUpsert Intermediate table with Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{EA9597D4-7BCC-42E4-8A44-FC397FAAE6E1}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="MergeUpsert Intermediate table with Target" DTS:refId="Package\MergeUpsert Intermediate table with Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_merge" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{4C08634A-2DBC-4899-9942-3CFB0603DB2C}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Switch Intermediate table to Target" DTS:refId="Package\Switch Intermediate table to Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{EB0F1752-6954-4C92-920D-DAD5F6CB1F23}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Switch Intermediate table to Target" DTS:refId="Package\Switch Intermediate table to Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_switch" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{2FA3510A-8462-474F-8083-BD6F8CE72D5F}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table before Delete" DTS:refId="Package\Truncate Intermediate table before Delete" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_truncateDelete" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{58C0D716-8983-4391-9506-4ED65F7DFD34}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Loading PrimaryKey to Intermediate table" DTS:refId="Package\Loading PrimaryKey to Intermediate table" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Loading PrimaryKey to Intermediate table\Query Source" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{6F553658-8812-44C1-9A2C-9DCA9AB668F6}:external" connectionManagerRefId="Project.ConnectionManagers[SourceDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="CustomerID" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Output].ExternalColumns[CustomerID]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Output].ExternalColumns[CustomerID]" lineageId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Output].Columns[CustomerID]" name="CustomerID" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Output].Columns[CustomerID]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Error].Columns[CustomerID]" name="CustomerID" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Error].Columns[CustomerID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable">User::SQL_selectsourcePK</property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">3</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{07EE134D-1E5F-41BC-A9E0-0233B5007D5A}:external" connectionManagerRefId="Project.ConnectionManagers[StagingDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Query Source_Output_Feed Staging" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="CustomerID" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CustomerID]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="CustomerID" externalMetadataColumnId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Inputs[Query Source_Output_Feed Staging].ExternalColumns[CustomerID]" lineageId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Output].Columns[CustomerID]" name="" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Inputs[Query Source_Output_Feed Staging].Columns[CustomerID]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Outputs[Error]" synchronousInputId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Inputs[Query Source_Output_Feed Staging]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable">User::TableNameTempDelete</property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">4</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">true</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Loading PrimaryKey to Intermediate table\Feed Staging.Inputs[Query Source_Output_Feed Staging]" name="Query Source_Output_Feed Staging" refId="Package\Loading PrimaryKey to Intermediate table.Paths[Query Source_Output_Feed Staging]" startId="Package\Loading PrimaryKey to Intermediate table\Query Source.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{138F0BE0-AACC-465F-BD60-190448F1E4FE}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="MergeDelete Intermediate table with Target" DTS:refId="Package\MergeDelete Intermediate table with Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_mergeDelete" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{69DB147A-D181-4C7A-8A7B-97CEA711EB7F}" DTS:From="Package\Get Max Date From Target" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Get Max Date From Target_To_Truncate Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Get Max Date From Target_To_Truncate Intermediate table]" DTS:To="Package\Truncate Intermediate table"></DTS:PrecedenceConstraint>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{65A33312-2ABF-4AEB-9DDA-FF885008408D}" DTS:From="Package\Truncate Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table]" DTS:To="Package\Loading Data to Intermediate table"></DTS:PrecedenceConstraint>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{1F6E5AEC-E1D9-4C70-B704-94EE36A13B54}" DTS:EvalOp="3" DTS:Expression="@[User::StagingMaxIncrementalValue]!= &quot;FirstLoad&quot;" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_MergeUpsert Intermediate table with Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_MergeUpsert Intermediate table with Target]" DTS:To="Package\MergeUpsert Intermediate table with Target"></DTS:PrecedenceConstraint>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{32CB22A7-D37A-4694-AB5D-3A122DB23C2D}" DTS:EvalOp="3" DTS:Expression="@[User::StagingMaxIncrementalValue]== &quot;FirstLoad&quot;" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target]" DTS:To="Package\Switch Intermediate table to Target"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{77DD97B5-E931-474B-89B7-79629E1ADDFC}" DTS:From="Package\Get Max Date From Target" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Get Max Date From Target_To_Truncate Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Get Max Date From Target_To_Truncate Intermediate table]" DTS:To="Package\Truncate Intermediate table"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{19227F64-B8B3-412B-AC29-7C3E4DA9B7E7}" DTS:From="Package\Truncate Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table]" DTS:To="Package\Loading Data to Intermediate table"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{27CAD327-1115-4964-8943-6F779CE0D8F9}" DTS:EvalOp="3" DTS:Expression="@[User::StagingMaxIncrementalValue]!= &quot;FirstLoad&quot;" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_MergeUpsert Intermediate table with Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_MergeUpsert Intermediate table with Target]" DTS:To="Package\MergeUpsert Intermediate table with Target"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{DB52EEDC-5B53-47EF-9C60-C7448B9FE3C5}" DTS:EvalOp="3" DTS:Expression="@[User::StagingMaxIncrementalValue]== &quot;FirstLoad&quot;" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target]" DTS:To="Package\Switch Intermediate table to Target"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{8D13541D-C090-4648-9A33-ED2C68E06AD5}" DTS:From="Package\MergeUpsert Intermediate table with Target" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_MergeUpsert Intermediate table with Target_To_Truncate Intermediate table before Delete" DTS:refId="Package.PrecedenceConstraints[Constraint_MergeUpsert Intermediate table with Target_To_Truncate Intermediate table before Delete]" DTS:To="Package\Truncate Intermediate table before Delete"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{1C612649-4F71-4A32-AE78-90EB3E67CEF1}" DTS:From="Package\Truncate Intermediate table before Delete" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table before Delete_To_Loading PrimaryKey to Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table before Delete_To_Loading PrimaryKey to Intermediate table]" DTS:To="Package\Loading PrimaryKey to Intermediate table"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{3972ADF4-D07A-4545-9424-FA4610A62DF0}" DTS:From="Package\Loading PrimaryKey to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading PrimaryKey to Intermediate table_To_MergeDelete Intermediate table with Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading PrimaryKey to Intermediate table_To_MergeDelete Intermediate table with Target]" DTS:To="Package\MergeDelete Intermediate table with Target"></DTS:PrecedenceConstraint>
   </DTS:PrecedenceConstraints>
 </DTS:Executable>
