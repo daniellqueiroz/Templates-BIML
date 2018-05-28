@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="05/23/2018 21:35:55" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{F7FC5319-3AC1-40EE-A632-5C073B734AE5}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="_Master" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{A5D7E58E-2834-4004-87E4-7DA9B821841A}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="05/27/2018 21:39:00" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{0C0DE1CA-01C7-4BED-83F0-534FD1E802C4}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="_Master" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{1AE8C79C-88C4-4DC9-A9E9-A091ADFFDC7C}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B6B1CCF6-6E05-41A9-982F-A571E0CB3CD4}" DTS:EvaluateAsExpression="True" DTS:Expression="GETDATE()" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="StagingLoadDate">
-      <DTS:VariableValue DTS:DataType="7">05/23/2018 21:35:55</DTS:VariableValue>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{A41CC02D-D95F-4368-8319-D236C54D9883}" DTS:EvaluateAsExpression="True" DTS:Expression="GETDATE()" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="StagingLoadDate">
+      <DTS:VariableValue DTS:DataType="7">05/27/2018 21:39:00</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{DA709CB8-A4BB-485D-8689-EBD7214008BA}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="SalesStg_Currency" DTS:refId="Package\SalesStg_Currency" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{A25B58EA-51EC-44CE-899D-51DE34350292}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="SalesStg_Currency" DTS:refId="Package\SalesStg_Currency" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <ExecutePackageTask>
           <PackageName>SalesStg_Currency.dtsx</PackageName>
@@ -19,7 +19,7 @@
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{2D04FF21-A302-4BC1-9686-3CBCFBE89B61}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="SalesStg_Customer" DTS:refId="Package\SalesStg_Customer" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{D5A80A00-B686-4390-971A-C4474EBD9F50}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="SalesStg_Customer" DTS:refId="Package\SalesStg_Customer" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <ExecutePackageTask>
           <PackageName>SalesStg_Customer.dtsx</PackageName>
@@ -31,7 +31,7 @@
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{8323637A-90C1-40FA-8EF9-91F5E04A3339}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="SalesStg_Store" DTS:refId="Package\SalesStg_Store" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecutePackageTask" DTS:DTSID="{65BE5045-FFCB-4BBD-B917-6662AC802EAF}" DTS:ExecutableType="Microsoft.ExecutePackageTask" DTS:LocaleID="-1" DTS:ObjectName="SalesStg_Store" DTS:refId="Package\SalesStg_Store" DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <ExecutePackageTask>
           <PackageName>SalesStg_Store.dtsx</PackageName>

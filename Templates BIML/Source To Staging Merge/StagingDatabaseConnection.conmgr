@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="StagingDatabaseConnection" DTS:DTSID="{07EE134D-1E5F-41BC-A9E0-0233B5007D5A}" DTS:refId="Package.ConnectionManagers[StagingDatabaseConnection]" DTS:CreationName="OLEDB">
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ObjectName="StagingDatabaseConnection" DTS:DTSID="{6B0B3E14-C78D-451B-A4F6-5D087BA755ED}" DTS:refId="Package.ConnectionManagers[StagingDatabaseConnection]" DTS:CreationName="OLEDB">
   <DTS:ObjectData>
     <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ConnectionString="provider=SQLNCLI11;data source=localhost;initial catalog=StagingAdventureWorks2016;integrated security=SSPI"></DTS:ConnectionManager>
   </DTS:ObjectData>

@@ -1,7 +1,15 @@
 <#@ template language="C#" hostspecific="true"#>
 <#
-    string sourceConnectionString = @"Provider=SQLNCLI11;Data Source=localhost;Initial Catalog=AdventureWorks2016;User ID=testuser;Password=12345;";
+    //Driver={SQL Server Native Client 11.0};trusted_connection=Yes;server=localhost;database=AdventureWorks2016;
+    //Driver={SQL Server Native Client 11.0};trusted_connection=Yes;server=localhost;database=AdventureWorks2016;
+    //string sourceConnectionString = @"Provider=SQLNCLI11;Data Source=localhost;Initial Catalog=AdventureWorks2016;User ID=testuser;Password=12345;";
+    
+    string sourceDriverType = "OleDb";
+    string sourceConnectionString = @"Provider=SQLNCLI11;Data Source=localhost;Initial Catalog=AdventureWorks2016;Integrated Security=SSPI;";
+    
+    string destinationDriverType = "OleDb";
     string destinationConnectionString = @"Provider=SQLNCLI11;Data Source=localhost;Initial Catalog=StagingAdventureWorks2016;Integrated Security=SSPI;";
+    
     string stagingLoadDateColumn = "Staging Load Date";
 
     // ([Source Schema Name], [Table Name], [Incremental Column Name], [Destination Schema Name] , [MergeUpsert/MergeDelete/Switch]
@@ -10,7 +18,7 @@
     {
         new string[] {"Sales", "Currency", "",             "SalesStg", "Switch"     },
         new string[] {"Sales", "Customer", "ModifiedDate", "SalesStg", "MergeDelete"},
-        new string[] {"Sales", "Store", "ModifiedDate", "SalesStg", "MergeUpsert"}
+        new string[] {"Sales", "Store", "", "SalesStg", "Switch"}
 
     };
     

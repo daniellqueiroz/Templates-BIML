@@ -1,10 +1,19 @@
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
 
-<#@include file="2_1_Variables Builder.biml"#>
+<#@include file="2_1_Builders.biml"#>
 
 <Connections>
-    <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="<#=$"{sourceConnectionString}"#>"></OleDbConnection>
-    <OleDbConnection CreateInProject="true" Name="StagingDatabaseConnection" ConnectionString="<#=$"{destinationConnectionString}"#>"></OleDbConnection>
+<#if(sourceDriverType == "OleDb")
+{#>
+    <OleDbConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="<#=sourceConnectionString#>"></OleDbConnection>
+<#
+} else if (sourceDriverType == "ODBC")
+{#>
+    <OdbcConnection CreateInProject="true" Name="SourceDatabaseConnection" ConnectionString="<#=sourceConnectionString#>"></OdbcConnection>  
+<#
+}
+#>
+    <OleDbConnection CreateInProject="true" Name="StagingDatabaseConnection" ConnectionString="<#=destinationConnectionString#>"></OleDbConnection>
 </Connections>
 <Projects>
     <PackageProject Name="Source To Staging" ProtectionLevel="DontSaveSensitive">
@@ -65,14 +74,14 @@
             <Variable Name="SQL_switch" DataType="String" EvaluateAsExpression="true"><#=GetSQLSwitch()#></Variable>            
 <#if(isMerge == true)
 {#>
-            <Variable Name="SQL_merge" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatement(intermediateTableName, destinationTableName, destinationConnectionString, stagingLoadDateColumn)#></Variable>
+            <Variable Name="SQL_merge" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatement(intermediateTableName, destinationTableName, destinationConnectionString, stagingLoadDateColumn,destinationDriverType)#></Variable>
     <#
     if(isDelete == true)
     {
     #>
         <Variable Name="TableNameTempDelete" DataType="String" EvaluateAsExpression="false"><#=intermediateDeleteTableName#></Variable>
-        <Variable Name="SQL_selectsourcePK" DataType="String" EvaluateAsExpression="true"><#=GenerateSelectPKStatementForDelete(sourceTableName, sourceConnectionString)#></Variable>
-        <Variable Name="SQL_mergeDelete" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatementForDelete(intermediateDeleteTableName, destinationTableName, destinationConnectionString)#></Variable>
+        <Variable Name="SQL_selectsourcePK" DataType="String" EvaluateAsExpression="true"><#=GenerateSelectPKStatementForDelete(sourceTableName, sourceConnectionString, sourceDriverType)#></Variable>
+        <Variable Name="SQL_mergeDelete" DataType="String" EvaluateAsExpression="true"><#=GenerateMergeStatementForDelete(intermediateDeleteTableName, destinationTableName, destinationConnectionString, destinationDriverType)#></Variable>
         <Variable Name="SQL_truncateDelete" DataType="String" EvaluateAsExpression="true"><#=GetSQLTruncateDelete()#></Variable>
     <#}
 }
@@ -80,7 +89,7 @@
 if(incrementalColumnName != "[]")
 {#>
             <Variable Name="StagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="false">FirstLoad</Variable>
-            <Variable Name="SQL_getStagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetStagingMaxIncrementalValue(sourceConnectionString, sourceTableName, incrementalColumnName)#></Variable>                
+            <Variable Name="SQL_getStagingMaxIncrementalValue" DataType="String" EvaluateAsExpression="true"><#=GetSQLGetStagingMaxIncrementalValue(sourceConnectionString, sourceTableName, incrementalColumnName, sourceDriverType)#></Variable>                
             <Variable Name="IncrementalColumnName" DataType="String" EvaluateAsExpression="false"><#=incrementalColumnName#></Variable>            
 <#}#>
         </Variables>
@@ -107,9 +116,20 @@ if(incrementalColumnName != "[]")
             </ExecuteSQL>
             <Dataflow Name="Loading Data to Intermediate table">
                 <Transformations>
+            <#if(sourceDriverType == "OleDb")
+            {#>
                     <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
                         <VariableInput VariableName="User.SQL_selectsource"/>
                     </OleDbSource>
+            <#
+            } else if (sourceDriverType == "ODBC")
+            {#>
+                    <OdbcSource Name="Query Source" Connection="SourceDatabaseConnection">
+                        <DirectInput><#=GetSQLGetSourceDataSqlCommand(sourceTableName)#></DirectInput>
+                    </OdbcSource>
+            <#
+            }
+            #>
                     <DerivedColumns Name="Add new columns">
                         <Columns>
                             <Column Name="<#=stagingLoadDateColumn#>" DataType="DateTime">@[$Package::StagingLoadDateParameter]</Column>
@@ -124,6 +144,14 @@ if(incrementalColumnName != "[]")
                         <Input OutputPathName="Truncate Intermediate table.Output"></Input>
                     </Inputs>
                 </PrecedenceConstraints>
+                <Expressions>
+                <#if (sourceDriverType == "ODBC")
+                {#>
+                    <Expression ExternalProperty="[Query Source].[SqlCommand]">@[User::SQL_selectsource]</Expression>
+                <#
+                }
+                #>
+                </Expressions>
             </Dataflow>
 <#
 if(isMerge == true)
@@ -157,9 +185,20 @@ if(isMerge == true)
             </ExecuteSQL>
             <Dataflow Name="Loading PrimaryKey to Intermediate table">
                 <Transformations>
+            <#if(sourceDriverType == "OleDb")
+            {#>
                     <OleDbSource Name="Query Source" ConnectionName="SourceDatabaseConnection">
                         <VariableInput VariableName="User.SQL_selectsourcePK"/>
                     </OleDbSource>
+            <#
+            } else if (sourceDriverType == "ODBC")
+            {#>
+                    <OdbcSource Name="Query Source" Connection="SourceDatabaseConnection">
+                        <DirectInput><#=GenerateSelectPKStatementForDeleteSqlCommand(sourceTableName, sourceConnectionString, sourceDriverType)#></DirectInput>
+                    </OdbcSource>
+            <#
+            }
+            #>
                     <OleDbDestination Name="Feed Staging" ConnectionName="StagingDatabaseConnection" KeepIdentity="true">
                         <TableFromVariableOutput VariableName="User.TableNameTempDelete"/>
                     </OleDbDestination>

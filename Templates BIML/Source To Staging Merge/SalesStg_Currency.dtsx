@@ -1,44 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="05/23/2018 21:35:55" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{51305B0E-44CF-4051-AD2A-70ECE417DEB1}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="SalesStg_Currency" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{3F444D2A-0E6F-4AF4-A21F-C6172ED2C6EB}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="05/27/2018 21:39:00" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="SASHADELL" DTS:CreatorName="bravi" DTS:DTSID="{E4E7447F-0D3A-4174-A664-475A6B816B28}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1044" DTS:ObjectName="SalesStg_Currency" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{39A5215C-5107-41E5-A3BD-A2B65F7D05F2}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:PackageParameters>
-    <DTS:PackageParameter DTS:CreationName="" DTS:DataType="7" DTS:Description="" DTS:DTSID="{043403F5-9218-472B-9F21-C346536D8576}" DTS:ObjectName="StagingLoadDateParameter" DTS:Required="1" DTS:Sensitive="0">
+    <DTS:PackageParameter DTS:CreationName="" DTS:DataType="7" DTS:Description="" DTS:DTSID="{E6D5B13F-A8AB-4706-A6CB-C4B0F6A8CA69}" DTS:ObjectName="StagingLoadDateParameter" DTS:Required="1" DTS:Sensitive="0">
       <DTS:Property DTS:DataType="7" DTS:Name="ParameterValue">1900-01-01</DTS:Property>
     </DTS:PackageParameter>
   </DTS:PackageParameters>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{B2FC43CD-572C-419A-A689-1B8BE51E5406}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{EE453B53-3FC6-4BA8-B3C6-B36B44B90D82}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameSource">
       <DTS:VariableValue DTS:DataType="8">[Sales].[Currency]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{E293106C-981D-4B8D-8E7B-B2EF199A63A9}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{57B8F44A-7787-4833-A611-D669F9E3AD54}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTemp">
       <DTS:VariableValue DTS:DataType="8">[SalesStg].[Currency_temp]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{7FAB80C5-0F5C-4393-893E-251D4AE2E930}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{BF5F234D-A1F1-46E5-A302-A8D941F7B65A}" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="TableNameTarget">
       <DTS:VariableValue DTS:DataType="8">[SalesStg].[Currency]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{9AF18FC4-34FD-40BF-AC4F-FD78AB2A0918}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{4496B366-C3D1-4110-BC02-096AEEAC1EA6}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;truncate table &quot; + @[User::TableNameTemp]" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_truncate">
       <DTS:VariableValue DTS:DataType="8">truncate table [SalesStg].[Currency_temp]</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{8BC69DAD-42CA-4A02-92F4-5CDC9F5792FB}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select * from &quot; + @[User::TableNameSource] + &quot; as tbl;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsource">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{DE94037E-4ACF-4981-B65C-36879A557264}" DTS:EvaluateAsExpression="True" DTS:Expression="&quot;select * from &quot; + @[User::TableNameSource] + &quot; as tbl;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_selectsource">
       <DTS:VariableValue DTS:DataType="8">select * from [Sales].[Currency] as tbl;</DTS:VariableValue>
     </DTS:Variable>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{28A7FD48-90D7-4E86-AD37-F95D079EE55A}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;begin tran;&#xA;&#xA;truncate table &quot;+ @[User::TableNameTarget] + &quot;;&#xA;&#xA;&#xA;alter table &quot;+ @[User::TableNameTemp] + &quot;&#xA;            switch to &quot; + @[User::TableNameTarget] + &quot;&#xA;&#xA;commit;&#xA;    &#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_switch">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{D565510B-9A5E-4CC5-ADC2-A7D5080BA729}" DTS:EvaluateAsExpression="True" DTS:Expression="&#xA;&quot;begin tran;&#xA;&#xA;truncate table &quot;+ @[User::TableNameTarget] + &quot;;&#xA;&#xA;&#xA;alter table &quot;+ @[User::TableNameTemp] + &quot;&#xA;            switch to &quot; + @[User::TableNameTarget] + &quot;&#xA;&#xA;commit;&#xA;    &#xA;&quot;" DTS:IncludeInDebugDump="2345" DTS:Namespace="User" DTS:ObjectName="SQL_switch">
       <DTS:VariableValue DTS:DataType="8">begin tran;truncate table [SalesStg].[Currency];alter table [SalesStg].[Currency_temp]            switch to [SalesStg].[Currency]commit;    </DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{FA87EB73-580E-4922-BAEF-1CAB1E7DF665}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table" DTS:refId="Package\Truncate Intermediate table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{6D07F430-4DF5-4A86-8ABB-6F69051DABC6}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Truncate Intermediate table" DTS:refId="Package\Truncate Intermediate table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_truncate" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{ECD629E0-458E-4FAB-9304-13D529939BBC}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Loading Data to Intermediate table" DTS:refId="Package\Loading Data to Intermediate table" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{BB500770-597B-4C9D-A753-492690C0D0B9}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Loading Data to Intermediate table" DTS:refId="Package\Loading Data to Intermediate table" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
           <components>
             <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Query Source" refId="Package\Loading Data to Intermediate table\Query Source" usesDispositions="true" version="7">
               <connections>
-                <connection connectionManagerID="{6F553658-8812-44C1-9A2C-9DCA9AB668F6}:external" connectionManagerRefId="Project.ConnectionManagers[SourceDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading Data to Intermediate table\Query Source.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{49DA8088-45DD-417B-AB45-7BFA7BB40786}:external" connectionManagerRefId="Project.ConnectionManagers[SourceDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading Data to Intermediate table\Query Source.Connections[OleDbConnection]"></connection>
               </connections>
               <outputs>
                 <output name="Output" refId="Package\Loading Data to Intermediate table\Query Source.Outputs[Output]">
@@ -105,7 +105,7 @@
             </component>
             <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="Feed Staging" refId="Package\Loading Data to Intermediate table\Feed Staging" usesDispositions="true" version="4">
               <connections>
-                <connection connectionManagerID="{07EE134D-1E5F-41BC-A9E0-0233B5007D5A}:external" connectionManagerRefId="Project.ConnectionManagers[StagingDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading Data to Intermediate table\Feed Staging.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{6B0B3E14-C78D-451B-A4F6-5D087BA755ED}:external" connectionManagerRefId="Project.ConnectionManagers[StagingDatabaseConnection]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Loading Data to Intermediate table\Feed Staging.Connections[OleDbConnection]"></connection>
               </connections>
               <inputs>
                 <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Add new columns_Output_Feed Staging" refId="Package\Loading Data to Intermediate table\Feed Staging.Inputs[Add new columns_Output_Feed Staging]">
@@ -154,14 +154,14 @@
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{7B5BDCB1-A523-4C4A-9341-F62899D7C5D4}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Switch Intermediate table to Target" DTS:refId="Package\Switch Intermediate table to Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{C0D50787-2734-41B2-A6FB-D19943EF523C}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Switch Intermediate table to Target" DTS:refId="Package\Switch Intermediate table to Target" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="StagingDatabaseConnection" SQLTask:SqlStatementSource="User::SQL_switch" SQLTask:SqlStmtSourceType="Variable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{B8BE6163-050D-4C5A-B0C7-6037BFF09FDD}" DTS:From="Package\Truncate Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table]" DTS:To="Package\Loading Data to Intermediate table"></DTS:PrecedenceConstraint>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{7E672571-FE3F-482F-BCA0-22D384872953}" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target]" DTS:To="Package\Switch Intermediate table to Target"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{F1479125-1720-4DB8-BE49-3F36544BF3ED}" DTS:From="Package\Truncate Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table" DTS:refId="Package.PrecedenceConstraints[Constraint_Truncate Intermediate table_To_Loading Data to Intermediate table]" DTS:To="Package\Loading Data to Intermediate table"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{CA34F368-A2F1-4482-9516-4A1C339DC856}" DTS:From="Package\Loading Data to Intermediate table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target" DTS:refId="Package.PrecedenceConstraints[Constraint_Loading Data to Intermediate table_To_Switch Intermediate table to Target]" DTS:To="Package\Switch Intermediate table to Target"></DTS:PrecedenceConstraint>
   </DTS:PrecedenceConstraints>
 </DTS:Executable>

@@ -16,9 +16,9 @@ static string GetSQLTruncateDelete()
     return @"""truncate table "" + @[User::TableNameTempDelete]";
 }
 
-static string GetSQLGetStagingMaxIncrementalValue(string connectionString, string tableName, string columnName)
+static string GetSQLGetStagingMaxIncrementalValue(string connectionString, string tableName, string columnName, string sourceDriverType)
 {
-    var tableSchema = GetTableSchema(connectionString, tableName);
+    var tableSchema = GetTableSchema(connectionString, tableName, sourceDriverType);
 
     var columnDataType = (from DataRow col in tableSchema.Rows
                     where Convert.ToString(col["ColumnName"]) == columnName.Replace("[", "").Replace("]", "")
@@ -32,22 +32,22 @@ static string GetSQLGetStagingMaxIncrementalValue(string connectionString, strin
 
 static string GetSQLGetSourceData(string columnName)
 {
-//"","", ""
     if(columnName != "[]") 
             return  @"""select * from "" + @[User::TableNameSource] + ""as tbl  "" + (@[User::StagingMaxIncrementalValue] == ""FirstLoad"" ? """" : "" where tbl."" + @[User::IncrementalColumnName] + "">='"" + @[User::StagingMaxIncrementalValue] + ""';"")";
     else    return  @"""select * from "" + @[User::TableNameSource] + "" as tbl;""";
-
-    
-//    "select convert(nvarchar(30), max(tbl." + columnName + "), 126) as md from " + tableName +" as tbl";
-
 }
 
-static string GenerateMergeStatement(string tableSource, string tableTarget, string connectionString, string stagingLoadDateColumn)
+static string GetSQLGetSourceDataSqlCommand(string tableName)
+{
+    return  $@"select * from {tableName} as tbl;";
+}
+
+static string GenerateMergeStatement(string tableSource, string tableTarget, string connectionString, string stagingLoadDateColumn, string sourceDriverType)
 {
 
     stagingLoadDateColumn = stagingLoadDateColumn.Replace("[", "").Replace("]","");
 
-    var tableSchema = GetTableSchema(connectionString, tableTarget);
+    var tableSchema = GetTableSchema(connectionString, tableTarget, sourceDriverType);
 
     var columnAll = (from DataRow col in tableSchema.Rows
                         select col["ColumnName"]).ToList();
@@ -104,10 +104,10 @@ commit;
 """;
 }
 
-static string GenerateMergeStatementForDelete(string tableSource, string tableTarget, string connectionString)
+static string GenerateMergeStatementForDelete(string tableSource, string tableTarget, string connectionString, string driverType)
 {
 
-    var tableSchema = GetTableSchema(connectionString, tableTarget);
+    var tableSchema = GetTableSchema(connectionString, tableTarget, driverType);
 
     var columnPrimaryKey = (from DataRow col in tableSchema.Rows
                             where Convert.ToBoolean(col["IsKey"]) == true
@@ -127,10 +127,10 @@ when not matched by source
 }
 
 
-static string GenerateSelectPKStatementForDelete(string tableName, string connectionString)
+static string GenerateSelectPKStatementForDelete(string tableName, string connectionString, string sourceDriverType)
 {
 
-    var tableSchema = GetTableSchema(connectionString, tableName);
+    var tableSchema = GetTableSchema(connectionString, tableName, sourceDriverType);
 
     var columnPrimaryKey = (from DataRow col in tableSchema.Rows
                             where Convert.ToBoolean(col["IsKey"]) == true
@@ -138,11 +138,29 @@ static string GenerateSelectPKStatementForDelete(string tableName, string connec
 
     var primaryKeysPart = string.Join(", ", columnPrimaryKey.Select(n => $"[source].[{n}]"));
 
-    var merge = 
+    var sqlCommand = 
 $@"
 ""select {primaryKeysPart} 
 from "" + @[User::TableNameSource] + "" as [source] ""
 ";
-    return merge;
+    return sqlCommand;
+}
+
+static string GenerateSelectPKStatementForDeleteSqlCommand(string tableName, string connectionString, string sourceDriverType)
+{
+
+    var tableSchema = GetTableSchema(connectionString, tableName, sourceDriverType);
+
+    var columnPrimaryKey = (from DataRow col in tableSchema.Rows
+                            where Convert.ToBoolean(col["IsKey"]) == true
+                            select col["ColumnName"]).ToList();
+
+    var primaryKeysPart = string.Join(", ", columnPrimaryKey.Select(n => $"[source].[{n}]"));
+
+    var sqlCommand = 
+$@"
+select {primaryKeysPart} 
+from {tableName} as [source]";
+    return sqlCommand;
 }
 #>

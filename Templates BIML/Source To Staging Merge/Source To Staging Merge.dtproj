@@ -29,77 +29,17 @@
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
-          <SSIS:Package SSIS:Name="_Master.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="SalesStg_Currency.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="_Master.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="SalesStg_Customer.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="SalesStg_Store.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
-          <SSIS:ConnectionManager SSIS:Name="SourceDatabaseConnection.conmgr" />
           <SSIS:ConnectionManager SSIS:Name="StagingDatabaseConnection.conmgr" />
+          <SSIS:ConnectionManager SSIS:Name="SourceDatabaseConnection.conmgr" />
         </SSIS:ConnectionManagers>
         <SSIS:DeploymentInfo>
           <SSIS:ProjectConnectionParameters>
-            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.InitialCatalog">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="CreationName">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">AdventureWorks2016</SSIS:Property>
-                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-              </SSIS:Properties>
-            </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.RetainSameConnection">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="CreationName">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">false</SSIS:Property>
-                <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
-              </SSIS:Properties>
-            </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.ServerName">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="CreationName">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">localhost</SSIS:Property>
-                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-              </SSIS:Properties>
-            </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.UserName">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="CreationName">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">testuser</SSIS:Property>
-                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-              </SSIS:Properties>
-            </SSIS:Parameter>
             <SSIS:Parameter SSIS:Name="CM.StagingDatabaseConnection.InitialCatalog">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
@@ -159,35 +99,77 @@
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
-          </SSIS:ProjectConnectionParameters>
-          <SSIS:PackageInfo>
-            <SSIS:PackageMetaData SSIS:Name="_Master.dtsx">
+            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.InitialCatalog">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{F7FC5319-3AC1-40EE-A632-5C073B734AE5}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">_Master</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
+                <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{A5D7E58E-2834-4004-87E4-7DA9B821841A}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">AdventureWorks2016</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
-              <SSIS:Parameters />
-            </SSIS:PackageMetaData>
+            </SSIS:Parameter>
+            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.RetainSameConnection">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">false</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
+              </SSIS:Properties>
+            </SSIS:Parameter>
+            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.ServerName">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">localhost</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+              </SSIS:Properties>
+            </SSIS:Parameter>
+            <SSIS:Parameter SSIS:Name="CM.SourceDatabaseConnection.UserName">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="CreationName">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+              </SSIS:Properties>
+            </SSIS:Parameter>
+          </SSIS:ProjectConnectionParameters>
+          <SSIS:PackageInfo>
             <SSIS:PackageMetaData SSIS:Name="SalesStg_Currency.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{51305B0E-44CF-4051-AD2A-70ECE417DEB1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{94C6B63D-9760-49A1-A366-C41DF4832398}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">SalesStg_Currency</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{3F444D2A-0E6F-4AF4-A21F-C6172ED2C6EB}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{9BA0848B-5C8A-4148-A3DF-D8C3592892E7}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -196,7 +178,7 @@
               <SSIS:Parameters>
                 <SSIS:Parameter SSIS:Name="StagingLoadDateParameter">
                   <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{043403F5-9218-472B-9F21-C346536D8576}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="ID">{CC229295-0DD7-4F61-B2C7-B3F23F194EB4}</SSIS:Property>
                     <SSIS:Property SSIS:Name="CreationName">
                     </SSIS:Property>
                     <SSIS:Property SSIS:Name="Description">
@@ -210,16 +192,33 @@
                 </SSIS:Parameter>
               </SSIS:Parameters>
             </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="SalesStg_Customer.dtsx">
+            <SSIS:PackageMetaData SSIS:Name="_Master.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{4A7565E7-00B1-47D1-9F0D-DD7646ABC1C8}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">SalesStg_Customer</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{44FD43BC-FCFB-413C-BB50-E045AD2AFF7A}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">_Master</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1ABB6E82-95FA-4547-B283-5027ABD08264}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{EB8AEF79-738B-4391-AA05-A8195837F065}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="SalesStg_Customer.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{442E9D08-1F9D-49FC-96DC-AD0576679850}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">SalesStg_Customer</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{F2B80D4D-6B17-4319-A72D-470089DE693C}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -228,7 +227,7 @@
               <SSIS:Parameters>
                 <SSIS:Parameter SSIS:Name="StagingLoadDateParameter">
                   <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{C1DD3815-6A5A-471E-9005-EF2F1B90D607}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="ID">{3CCE327C-0A8F-49BA-B25D-08BFDB576B36}</SSIS:Property>
                     <SSIS:Property SSIS:Name="CreationName">
                     </SSIS:Property>
                     <SSIS:Property SSIS:Name="Description">
@@ -244,14 +243,14 @@
             </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="SalesStg_Store.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{7E63251F-F2C1-4827-81A8-B65BB4FFDE68}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{E777B74B-82C6-46E7-BAF7-9DC8C7819FCF}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">SalesStg_Store</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{E1F9FCEE-8B17-4618-B2B8-189FC6CDDBF1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{345FBB58-57D1-444D-98D9-4165FC402739}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -260,7 +259,7 @@
               <SSIS:Parameters>
                 <SSIS:Parameter SSIS:Name="StagingLoadDateParameter">
                   <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{45282815-15E2-4D20-9F55-B811C6EEB048}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="ID">{CE9FE26D-6F44-4D29-ABFD-476C2397D912}</SSIS:Property>
                     <SSIS:Property SSIS:Name="CreationName">
                     </SSIS:Property>
                     <SSIS:Property SSIS:Name="Description">
@@ -290,8 +289,8 @@
       <FullPath>1_Generate SSIS Packages.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>2_1_Variables Builder.biml</Name>
-      <FullPath>2_1_Variables Builder.biml</FullPath>
+      <Name>2_1_Builders.biml</Name>
+      <FullPath>2_1_Builders.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>2_2_SQL Metadata Methods.biml</Name>
